@@ -1,5 +1,5 @@
 const elem = document.querySelector("input");
-const outputElem = document.querySelector("section div div");
+const outputElem = document.getElementById("answer");
 
 const handleInput = function handleInputFunction(event) {
   
