@@ -4,48 +4,68 @@ const resultElem = document.getElementById("resultDisplay");
 const searchEvent = document.getElementById("searchButton");
 const cardTemplate = document.getElementById("cardTemplate");
 
-const highlightMatchingText = function highlighMatchingTextFunction (textToHighlight, lookUp) {
-    const regex = new RegExp(`(${lookUp})`, "gi");
-    return textToHighlight.replace(regex, `<mark>$1</mark>`);
-}
+const highlightMatchingText = function highlighMatchingTextFunction(
+	textToHighlight,
+	lookUp
+) {
+	const regex = new RegExp(`(${lookUp})`, "gi"); // global, case-insensitive
+	return textToHighlight.replace(regex, `<mark class="bg-warning p-0 m-0">$1</mark>`);
+};
 
-const outputResults = function outputResultsFunction(filteredList) {
-    resultElem.innerHTML = "";
-    if (filteredList.length === 0) {
-        resultElem.textContent = "No one matching that name found";
-        //return ?
-    }
-    else {
-        filteredList.forEach(characters => {
-            const card = cardTemplate.firstElementChild.cloneNode(true);
-            card.querySelector(".card-title").innerHTML = characters.name;
-            card.querySelector(".birth-year").innerHTML = characters.birth_year;
+const outputResults = function outputResultsFunction(userInput) {
+	const searchValue = userInput.value.toLowerCase();
 
-            card.hidden = false;
-            card.style.width = "200px"
-            
-            resultElem.appendChild(card);
-            //card.classList.add("card", "p-2");
-            //card.innerHTML = `${characters.name} - ${characters.birth_year}`;
-            //resultElem.appendChild(elem);
-        });
-    }
-}
+	// validate no input
+	if (searchValue === "") {
+		const noSearchValueMSG = document.createElement("p");
+		noSearchValueMSG.className = "text-center text-danger";
+		noSearchValueMSG.textContent = "No input";
+		resultDisplay.appendChild(noSearchValueMSG);
+		return;
+	}
 
-const handleClick = function handleClickFunction (){
-    const lookUp = userInput.value.toLowerCase();
-    const filteredResults = characters.map(characters => {
-        if(characters.name.toLowerCase().includes(lookUp))
-            return {
-                name: highlightMatchingText(characters.name, lookUp),
-                height: characters.height,
-                birth_year: characters.birth_year,
-            };
-        else 
-            return null;
-    })
-    .filter(Boolean);
+	// search and output results
+	characters
+		.filter((character) =>
+			character.name.toLowerCase().includes(searchValue.toLowerCase())
+		)
+		.forEach((result) => {
+			// to set up te grid
+			const col = document.createElement("div");
+			col.className = "col-12 col-sm-6 col-md-4 col-lg-3 d-flex";
 
-    outputResults(filteredResults);
-}
-searchEvent.addEventListener('click', handleClick);
+			// each card
+			const card = document.createElement("div");
+			card.className = "card shadow flex-fill";
+
+			// inside card
+			const cardBody = document.createElement("div");
+			cardBody.className = "card-body text-center";
+
+			// title of card which is the search result name
+			const title = document.createElement("h5");
+			title.className = "card-title";
+			title.innerHTML = highlightMatchingText(result.name, searchValue);
+
+			// birth year text
+			const text = document.createElement("p");
+			text.className = "card-text text-muted";
+			text.textContent = `Birth Year: ${result.birth_year}`;
+
+			// adding the elements to the card
+			cardBody.appendChild(title);
+			cardBody.appendChild(text);
+			card.appendChild(cardBody);
+			col.appendChild(card);
+
+			// append card to the main container
+			resultDisplay.appendChild(col);
+		});
+};
+
+const handleClick = function handleClickFunction(event) {
+	resultElem.innerHTML = "";
+	outputResults(userInput);
+};
+
+searchEvent.addEventListener("click", handleClick);
