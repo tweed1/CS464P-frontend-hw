@@ -43,8 +43,8 @@ const outputResults = function outputResultsFunction(userInput) {
 			cardBody.className = "card-body text-center";
 
 			// title of card which is the search result name
-			const title = document.createElement("h5");
-			title.className = "card-title";
+			const title = document.createElement("h2");
+			title.className = "card-title fs-5";
 			title.innerHTML = highlightMatchingText(result.name, searchValue);
 
 			// birth year text
