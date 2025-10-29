@@ -1,7 +1,6 @@
-
 let intervalId;
 
-// generate random HSLA colors
+// generate random HSLA colors, referenced from Gemini
 const getRandomColor = function getRandomColorFunction() {
 	const h = Math.floor(Math.random() * 360);
 	const s = Math.floor(Math.random() * 100);
@@ -10,23 +9,28 @@ const getRandomColor = function getRandomColorFunction() {
 	return `hsla(${h}, ${s}%, ${l}%, ${a})`;
 };
 
-// start color changing using setInterval()
+/* start color changing using setInterval(). the interval is multiplied by
+    1000 since it reads as milliseconds. Every interval the background color
+    updated by getting a random color and updating the body element */
 const startBackgroundColorChange = function startBackgroundColorChangeFunction(
 	interval
 ) {
 	clearInterval(intervalId); // can i clear a null value
 	intervalId = setInterval(() => {
 		document.body.style.backgroundColor = getRandomColor();
-	}, interval);
+        
+	}, interval * 1000); //needs to be in milliseconds 
 };
 
+/* manages the button interaction. by checking the button text content
+    different actions are taken to either start or stop the interval and
+    setting a new button value */
 const handleButtonClick = function handleButtonClickFunction() {
 	const input = document.getElementById("interval");
 	const button = document.getElementById("buttonSS");
 
 	if (button.textContent === "Start") {
 		const interval = input.value;
-
 		if (interval === "" || interval < 1) {
 			errorMessageDisplay.innerHTML = ""; // clear previous error messages
 			const badInputValueMSG = document.createElement("p");
@@ -35,10 +39,9 @@ const handleButtonClick = function handleButtonClickFunction() {
 			errorMessageDisplay.appendChild(badInputValueMSG);
 			return;
 		}
-
 		errorMessageDisplay.innerHTML = ""; // clear display
 
-		startBackgroundColorChange(interval * 1000);
+		startBackgroundColorChange(interval);
 		//change the button to stop while that runs
 		button.textContent = "Stop";
 		button.classList.replace("btn-primary", "btn-danger");
@@ -52,14 +55,17 @@ const handleButtonClick = function handleButtonClickFunction() {
 };
 
 // runs after the window loads
-/* const handleWindowLoad = function handleWindowLoadFunction() {
- */	const button = document.getElementById("buttonSS");
+const handleWindowLoad = function handleWindowLoadFunction() {
+
+    startBackgroundColorChange(3); // kickoff with a 3 second background change
+
+	const button = document.getElementById("buttonSS");
 	button.addEventListener("click", handleButtonClick);
-/* }; */
+};
 
-// whats the point of this if everything needs to be done on start
-/* window.addEventListener("load", handleWindowLoad);
- */
+// starts on a 3 sec interval with the stop button
+window.addEventListener("load", handleWindowLoad);
 
 
-// todo does order of these function matter in terms of js standards
+
+
