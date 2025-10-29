@@ -1,9 +1,10 @@
-// Add your code here
-const userInput = document.getElementById("userInput");
+
 const resultElem = document.getElementById("resultDisplay");
 const searchEvent = document.getElementById("searchButton");
 const cardTemplate = document.getElementById("cardTemplate");
 
+/* used just for highlighting matching search results prior to being displayed
+    single characters in a word or an entire word */
 const highlightMatchingText = function highlighMatchingTextFunction(
 	textToHighlight,
 	lookUp
@@ -12,6 +13,9 @@ const highlightMatchingText = function highlighMatchingTextFunction(
 	return textToHighlight.replace(regex, `<mark class="bg-warning p-0 m-0">$1</mark>`);
 };
 
+/* using .filter and .forEach to search then format matching results 
+    to the search value. Appending the html elements to the div in the html
+    file with id=resultDisplay */
 const outputResults = function outputResultsFunction(userInput) {
 	const searchValue = userInput.value.toLowerCase();
 
@@ -24,7 +28,7 @@ const outputResults = function outputResultsFunction(userInput) {
 		return;
 	}
 
-	// search and output results
+	// search, format, and output results
 	characters
 		.filter((character) =>
 			character.name.toLowerCase().includes(searchValue.toLowerCase())
@@ -63,6 +67,8 @@ const outputResults = function outputResultsFunction(userInput) {
 		});
 };
 
+const userInput = document.getElementById("userInput");
+/* clears the search results and calls function to output new search results */
 const handleClick = function handleClickFunction(event) {
 	resultElem.innerHTML = "";
 	outputResults(userInput);
