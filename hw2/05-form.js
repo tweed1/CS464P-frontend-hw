@@ -1,27 +1,25 @@
 const form = document.querySelector("#myform");
 
-const modalBody = document.querySelector(".modal-body");
-const modal = new bootstrap.Modal(document.getElementById("exampleModal"));
-const confirmAndClear = document.getElementById("confirmAndClear");
-
-const handleInput = function handleInputFunction(event) {
+/* when a form is submitted grab all those input and output them into
+    a modal. the modal can 'close' or 'confirm'. confirm closed the 
+    modal and clears the form */
+const onSubmit = function handleInputFunction(event) {
 	event.preventDefault();
 
+	const modal = new bootstrap.Modal(document.getElementById("exampleModal"));
 	const nameOutput = document.getElementById("nameOutput");
+
 	const emailOutput = document.getElementById("emailOutput");
 	const registrationOutput = document.getElementById("registeredCourses");
 	const coursesSelected = document.getElementById("coursesOutput");
 	const notesOutput = document.getElementById("notesOutput");
 
-	// document.addEventListener("DOMContentLoaded", () => {
-	//   ?should line 1-4 be in a separate event listened for when the page loads?
-
 	const name = document.getElementById("nameInput").value;
 	const email = document.getElementById("emailInput").value;
-	const registrationStatus =document.getElementById("registrationSelect").value;
+	const registrationStatus =
+		document.getElementById("registrationSelect").value;
 	const notes = document.getElementById("largeTextBox").value;
 
-	// const coursesSelected = document.querySelector(".form-check-input:checked")
 	const courses = Array.from(
 		document.querySelectorAll(".form-check-input:checked")
 	).map((input) => input.value); // asked the internet fo this
@@ -33,11 +31,12 @@ const handleInput = function handleInputFunction(event) {
 	notesOutput.textContent = `Notes: ${notes}`;
 
 	modal.show();
-
-	// clear form when click 'confirm' in the modal
-	confirmAndClear.addEventListener("click", () => {
-		form.reset();
-	});
 };
 
-form.addEventListener("submit", handleInput);
+form.addEventListener("submit", onSubmit);
+
+// clear form when click 'confirm' in the modal
+const confirmAndClear = document.getElementById("confirmAndClear");
+confirmAndClear.addEventListener("click", () => {
+	form.reset();
+});
