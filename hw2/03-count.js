@@ -12,9 +12,7 @@ const highlight = function highlighFunction(searchWord) {
 	}
 
 	const arr = divText.split(/([\s+.,\/#!$%\^&\*;:{}=\-_`~()—?])/);
-
-	console.table(arr);
-
+    
 	const newText = arr.map((word) => {
 		const compWord = word.toLowerCase(); 
 
