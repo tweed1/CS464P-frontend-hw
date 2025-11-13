@@ -29,6 +29,7 @@ const DonutChart = () => {
 				const response = await fetch(
 					"https://restcountries.com/v3.1/region/south%20america"
 				);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`)
 				const data = await response.json();
 
 				const formatData = data.map((country) => ({
@@ -70,11 +71,12 @@ const DonutChart = () => {
 				}
 
 				setCountryData(majorCountries);
-				setLoading(false);
+				
 			} catch (error) {
 				console.error("Error fetching data:", error);
-				setLoading(false);
-			}
+			} finally {
+                setLoading(false);
+            }
 		};
 		fetchCountryData();
 	}, []);

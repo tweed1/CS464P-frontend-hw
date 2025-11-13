@@ -33,10 +33,8 @@ const BarChart = () => {
 				populationData.sort((a, b) => b.population - a.population);
 
 				setCountryData(populationData);
-				setLoading(false);
 			} catch (error) {
 				console.error("Error fetching data:", error);
-				setLoading(false);
 			} finally {
 				setLoading(false);
 			}
