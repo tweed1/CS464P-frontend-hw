@@ -18,7 +18,7 @@ import NavBar from "./Components/NavBar";
 
 const App = () => {
 	return (
-		<div className="custom-main-bg">
+		<main className="custom-main-bg">
 			<Router>
 				<NavBar />
 				<Routes>
@@ -26,7 +26,7 @@ const App = () => {
 					<Route path="search" element={<Search />} />
 				</Routes>
 			</Router>
-		</div>
+		</main>
 	);
 };
 
