@@ -1,75 +1,61 @@
-# React + TypeScript + Vite
+## Journal (work in progress)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+#### Topic Research
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+TODO: project proposal info
 
-## React Compiler
+<hr>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+#### Set up
 
-## Expanding the ESLint configuration
+> ##### app creation with vite
+> https://vite.dev/guide/
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+>`npm create vite@latest`
+>
+> select `react-ts`
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+##### react router
+[React Router Docuementation](https://reactrouter.com/start/modes#framework)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+> using framework mode in react router
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+##### CSS frameworks and resource links
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout
 
-This setup is through Vite directly. using react and typescript
+> Bootstrap and React Bootstrap 
+>
+> `npm install react-bootstrap bootstrap`
+
+https://react-bootstrap.netlify.app/docs/getting-started/introduction
+https://getbootstrap.com/docs/4.0/getting-started/introduction/
+
+<hr> 
+
+# Session Journal
+
+### Week 1
+
+>Primarily set up. I explored how to set up a react app with vite, which mode of react router I wanted to use, and what CSS framework I wanted to go with. 
+During this week I implemented a working navbar to ensure my routing was working. I based it off of my navbar for Homework 3.
+
+### Week 2
+
+>During this week I got the very basic color styling implemented and start to see what I could do with bootstrap and react bootstrap. I ran into some issues with trying to figure out bootstrap grid system and wether I should use the CSS Grid instead. This question came up because of how I originally imagined my homepage looking I was having a hard time achieving with bootstrap. 
+I decided to put a pin in that for the time being and pivot to my search page. I used react bootstrap form elements in combination with basic html tags to create a search bar that works on click.
+
+Trefle API is the first API I tried to fetch on button click from the search bar. 
+https://docs.trefle.io/docs/guides/getting-started
+I ran into this error 
+> `Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at <https:api link> (Reason: CORS header ‘Access-Control-Allow-Origin’ missing). Status code: 200.`
+
+And it would not return a response. This took some googling. mainly reading through stack overflow and looking through the github for trefle https://github.com/treflehq/documentation
+
+Through some messing around with the cors mode settings I was able to get a response but there was still a CORS error and it would go no further in my code.
+
+Perenual API is the next one I tried. Using `mode: cors` It worked immediately without any further errors. https://perenual.com/docs/api
+That is the one I used to experiment with listing items on the screen this week.
