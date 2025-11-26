@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const SearchPlant = () => {
     const apiKey = import.meta.env.VITE_PERENUAL_API_KEY;
-    const TapiKey = import.meta.env.VITE_TREFLE_TOKEN;
+    const tApiKey = import.meta.env.VITE_TREFLE_TOKEN;
 	const [loading, setLoading] = useState(true);
 	const [allPlants, setAllPlants] = useState([]);
 	const [error, setError] = useState(null);
@@ -19,14 +19,14 @@ const SearchPlant = () => {
 		setError(null);
 
 		try {
-			/* const response = await fetch(
-				"https://trefle.io/api/v1/plants/search?token=${VITE_TREFLE_TOKEN}&q=coconut",
-				{ mode: "cors" }
-			); */
 			const response = await fetch(
-				`https://perenual.com/api/v2/species-list?key=${apiKey}&q=${searchTerm}`,
+				`https://trefle.io/api/v1/plants/search?token=${tApiKey}&q=${searchTerm}`,
 				{ mode: "cors" }
 			);
+			/* const response = await fetch(
+				`https://perenual.com/api/v2/species-list?key=${apiKey}&q=${searchTerm}`,
+				{ mode: "cors" }
+			); */
 
 			if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
