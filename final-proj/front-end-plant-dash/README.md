@@ -62,6 +62,17 @@ That is the one I used to experiment with listing items on the screen this week.
 
 ### Week 3
 
-Footer reference: https://medium.com/@racosta323/create-a-simple-footer-using-react-bootstrap-58c4371a4ade
+>A lot of my struggles this week revolve around styling so mostly googling bootstrap specific questions and trialing out different things in the css. 
+>
+>I decided to add a footer and found this super helpful article that also brought to light how to use react bootstrap elements even better. 
+> Footer reference: https://medium.com/@racosta323/create-a-simple-footer-using-react-bootstrap-58c4371a4ade
+>
+>I still need to complete some styling on it. I was working for awhile to align the columns in an eye catching way. It needs to be made smaller at this point.
 
-font source: https://fonts.google.com/selection
+> I also worked on fonts. 
+>
+>font source: https://fonts.google.com/selection
+
+### Week 4
+
+>

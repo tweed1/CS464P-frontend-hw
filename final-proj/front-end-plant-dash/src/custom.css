@@ -1,6 +1,6 @@
-.custom-nav-bg {
+/* .custom-nav-bg {
 	background-color: #93ba91;
-}
+} */
 
 .custom-main-bg {
 	/* background-color: #CDD7CC; */
@@ -142,11 +142,13 @@
 	}
 }
 
+/* breaks page expanding when search results return */
 .search-page {
 
     height: 100vh;
     margin-top: 8vh;
 }
+
 .footer-col {
     color:#ebf9eb
 }
