@@ -7,6 +7,10 @@
 	background-color: #ebf9eb;
 }
 
+.success {
+	color: #ebf9eb;
+}
+
 .navbar-brand {
 	font-weight: 500;
 }
@@ -17,64 +21,145 @@
 	border: #005f5f;
 }
 
-.grid-container {
-	 display: grid;
-    /* Create three equal columns for the bottom row on larger screens */
-   /* ! grid-template-areas: ; */
-    /* Set gaps between all grid items */
-    gap: 40px; 
-    padding-top: 40px;
-    /* Limit the maximum width of the container */
-    
-    width: 100%;
-    /* Center the grid items within the container horizontally */
-    justify-items: center; 
+/* Change border color for a primary button */
+.btn-secondary {
+	background-color: #93ba91; /* Change to your desired color */
+	border-color: #93ba91;
 }
 
-.item {
-    background-color: #007bff; /* Blue background */
-    color: white;
-    padding: 50px 20px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-size: 2em;
-    /* Ensure items take full width of their grid cell */
-    
-    box-sizing: border-box;
-    /* Give all items a fixed aspect ratio for consistent height */
-   /*  aspect-ratio: 3 / 2; */
+/* Change border color on hover */
+.btn-secondary:hover {
+	border-color: green; /* Change to your desired color */
 }
+
+/* Change border color on focus (the blue outline) */
+.btn-secondary:focus {
+	border-color: purple !important; /* Use !important if needed */
+	box-shadow: 0 0 0 0.25rem rgba(128, 0, 128, 0.25) !important; /* Adjust box-shadow to match */
+}
+
+.my-anton {
+	font-family: "Anton", sans-serif;
+}
+
+.my-ultra {
+	font-family: "Ultra", serif;
+}
+
+.my-agu {
+	font-family: "Agu Display", serif;
+}
+
+.my-antonio {
+    font-family: "Antonio", serif;
+}
+
+.my-default {
+    font-family: sans-serif;
+}
+
+.zone-grid-container {
+	display: grid;
+	gap: 40px;
+	padding-top: 10px;
+	/* Limit the maximum width of the container */
+
+	width: 100%;
+	/* Center the grid items within the container horizontally */
+	justify-items: center;
+}
+
+.zone-item {
+	background-color: #004040; /* Blue background */
+	color: white;
+	padding: 50px 20px;
+	text-align: center;
+    align-items: center;
+    justify-content: center;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	font-size: 2em;
+	/* Ensure items take full width of their grid cell */
+
+	box-sizing: border-box;
+	/* Give all items a fixed aspect ratio for consistent height */
+	/*  aspect-ratio: 3 / 2; */
+    width: 90vw;
+    height: 500px;
+}
+
+.intro-text-grid-container {
+	display: grid;
+	gap: 40px;
+	padding-top: 40px;
+	width: 100%;
+	justify-items: center;
+}
+
+.intro-text-item { 
+	background-color: #004040; /* Blue background */
+	color: white;
+	padding: 10px;
+	text-align: center;
+    align-items: center;
+    justify-content: center;
+	border-radius: 8px;
+
+	box-sizing: border-box;
+	width: 90vw;
+}
+
 
 .large-item {
-    /* Span the large item across all 3 columns */
-    grid-column: 1 / span 6; 
-    /* Adjust the aspect ratio for the large item */
-    aspect-ratio: 4 / 1.5; 
-    width: 60%; 
+	/* Span the large item across all 3 columns */
+	grid-column: 1 / span 6;
+	/* Adjust the aspect ratio for the large item */
+	aspect-ratio: 4 / 1.5;
+	width: 60%;
 }
 
 /* Media query for mobile screens (screen width up to 600px) */
 @media (max-width: 900px) {
-    .container {
-        /* Switch to a single column layout on smaller screens */
-        grid-template-columns: 1fr; 
-        /* Increase gap slightly for mobile stack */
-        gap: 30px; 
-    }
+	.container {
+		/* Switch to a single column layout on smaller screens */
+		grid-template-columns: 1fr;
+		/* Increase gap slightly for mobile stack */
+		gap: 30px;
+	}
 
-    .large-item, .small-item {
-        /* Ensure all items span the single column */
-    grid-column: 1 / span 3; 
-    }
+	.large-item,
+	.small-item {
+		/* Ensure all items span the single column */
+		grid-column: 1 / span 3;
+	}
 }
 
 @media (min-width: 1300px) {
-
-    .small-item {
-        gap: 4px;
-        width: 90%;
-        grid-column: 1/ span 3;
-    }
+	.small-item {
+		gap: 4px;
+		width: 90%;
+		grid-column: 1 / span 3;
+	}
 }
 
+.search-page {
+
+    height: 100vh;
+    margin-top: 8vh;
+}
+.footer-col {
+    color:#ebf9eb
+}
+
+.foot-row {
+    justify-content: space-between;
+    padding-top: 4vh;
+    color:#93ba91;
+}
+
+.link {
+    padding: auto;
+}
+.link:hover {
+    color:#004040;
+}

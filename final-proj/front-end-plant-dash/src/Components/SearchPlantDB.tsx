@@ -6,21 +6,23 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const SearchPlant = () => {
-    const apiKey = import.meta.env.VITE_PERENUAL_API_KEY;
-    const TapiKey = import.meta.env.VITE_TREFLE_TOKEN;
-	const [loading, setLoading] = useState(true);
+	const apiKey = import.meta.env.VITE_PERENUAL_API_KEY;
+	const tApiKey = import.meta.env.VITE_TREFLE_TOKEN;
+	const [loading, setLoading] = useState(false);
+	const [instruction, setInstruction] = useState(true);
 	const [allPlants, setAllPlants] = useState([]);
 	const [error, setError] = useState(null);
 	const [searchTerm, setSearchTerm] = useState("");
 
 	const handleSubmit = async (event: any) => {
 		event.preventDefault();
-		setLoading(true);
+		setInstruction(false);
 		setError(null);
 
 		try {
+			setLoading(true);
 			/* const response = await fetch(
-				"https://trefle.io/api/v1/plants/search?token=${VITE_TREFLE_TOKEN}&q=coconut",
+				"https://trefle.io/api/v1/plants/search?token=${tApiKey}&q=coconut",
 				{ mode: "cors" }
 			); */
 			const response = await fetch(
@@ -47,6 +49,7 @@ const SearchPlant = () => {
 				<form
 					onSubmit={handleSubmit}
 					className="col-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
+                    <h2 className="text-start ps-2 my-ultra fs-1">Explore</h2>
 					<InputGroup className="mb-3" size="lg">
 						<Form.Control
 							value={searchTerm}
@@ -64,6 +67,9 @@ const SearchPlant = () => {
 						</Button>
 					</InputGroup>
 				</form>
+				{instruction && (
+					<p>Click "Search" with no input to search all plants</p>
+				)}
 				{loading && <p>Loading...</p>}
 				{error && <p> Error: </p>}
 
@@ -83,7 +89,7 @@ const SearchPlant = () => {
 									variant="top"
 									src={
 										plant.default_image?.thumbnail ||
-										"final-proj/front-end-plant-dash/images" // todo 
+										"final-proj/front-end-plant-dash/images" // todo
 									}
 									alt={plant.common_name}
 									style={{

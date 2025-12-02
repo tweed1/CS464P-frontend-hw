@@ -59,3 +59,9 @@ Through some messing around with the cors mode settings I was able to get a resp
 
 Perenual API is the next one I tried. Using `mode: cors` It worked immediately without any further errors. https://perenual.com/docs/api
 That is the one I used to experiment with listing items on the screen this week.
+
+### Week 3
+
+Footer reference: https://medium.com/@racosta323/create-a-simple-footer-using-react-bootstrap-58c4371a4ade
+
+font source: https://fonts.google.com/selection

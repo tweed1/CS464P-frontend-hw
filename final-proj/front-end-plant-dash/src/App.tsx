@@ -15,18 +15,24 @@ import {
 import Home from "./Views/Home";
 import Search from "./Views/Search";
 import NavBar from "./Components/NavBar";
+import Footer from "./Components/Footer";
+import ZoneMap from "./Views/ZoneMap";
 
 const App = () => {
 	return (
-		<main className="custom-main-bg">
-			<Router>
-				<NavBar />
-				<Routes>
-					<Route index element={<Home />} />
-					<Route path="search" element={<Search />} />
-				</Routes>
-			</Router>
-		</main>
+		<div>
+			<main className="custom-main-bg">
+				<Router>
+					<NavBar />
+					<Routes>
+						<Route index element={<Home />} />
+						<Route path="search" element={<Search />} />
+                        <Route path="zonemap" element={<ZoneMap />} />
+					</Routes>
+				</Router>
+			</main>
+			<Footer />
+		</div>
 	);
 };
 

@@ -8,9 +8,9 @@ const Search = () => {
     },[])
 
 	return (
-		<div className="pt-4">
+		<div className="pt-4 search-page">
 			<div>
-				<h1>Welcome to the Search Page!</h1>
+				<h1 className="my-ultra"></h1>
 			</div>
             <SearchPlant/>
 		</div>
