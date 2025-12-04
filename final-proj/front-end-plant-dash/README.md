@@ -75,4 +75,17 @@ That is the one I used to experiment with listing items on the screen this week.
 
 ### Week 4
 
+Map session
+> A big part of what I wanted to do involved having specific geographic markers on a U.S. map that corresponded to hardiness zones. I had to google how the process even worked and discovered geojson and topojson files and React Leaflet
 >
+> So in this session I was working on getting my map set up with the right topography for hardiness zones. I found [this repo ](https://github.com/kgjenkins/ophz/blob/master/topojson/ophz.topojson)with the correct json files I needed
+>
+> I had to put the .topojson file through a [converter](https://mapshaper.org) for geojson because that is the format I needed it in to create a map using [React Leaflet](https://react-leaflet.js.org).
+>
+> I was able to get the map displaying with the zones. 
+>
+>Next I needed to implement the redirect to a new page when the user clicks on a zone and that page makes an api call to fetch all plants within that zone. I was able to do that. 
+>
+> On the zone-specific page, I will display the results in card form like all other search results and above that display an graph
+>
+>The user can click into a card and see more details on the plant
