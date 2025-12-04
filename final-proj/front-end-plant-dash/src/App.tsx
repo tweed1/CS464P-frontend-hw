@@ -17,21 +17,22 @@ import Search from "./Views/Search";
 import NavBar from "./Components/NavBar";
 import Footer from "./Components/Footer";
 import ZoneMap from "./Views/ZoneMap";
+import Zone from "./Views/Zone";
+import AppLayout from "./Layouts/AppLayout";
 
 const App = () => {
 	return (
 		<div>
-			<main className="custom-main-bg">
-				<Router>
-					<NavBar />
-					<Routes>
+			<Router>
+				<Routes>
+					<Route element={<AppLayout />}>
 						<Route index element={<Home />} />
 						<Route path="search" element={<Search />} />
-                        <Route path="zonemap" element={<ZoneMap />} />
-					</Routes>
-				</Router>
-			</main>
-			<Footer />
+						<Route path="zonemap" element={<ZoneMap />} />
+						<Route path="zone/:id" element={<Zone />} />
+					</Route>
+				</Routes>
+			</Router>
 		</div>
 	);
 };

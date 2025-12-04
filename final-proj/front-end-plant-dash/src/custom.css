@@ -59,33 +59,26 @@
 }
 
 .zone-grid-container {
-	display: grid;
+	
+    background-color: #004040; /* Blue background */
+	color: white;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	box-sizing: border-box;
+    width: 90vw;
+    height: 100vh;
+    display: grid;
 	gap: 40px;
-	padding-top: 10px;
-	/* Limit the maximum width of the container */
-
 	width: 100%;
-	/* Center the grid items within the container horizontally */
 	justify-items: center;
+    align-items: center;
 }
 
 .zone-item {
-	background-color: #004040; /* Blue background */
-	color: white;
-	padding: 50px 20px;
-	text-align: center;
+    text-align: center;
     align-items: center;
     justify-content: center;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-	font-size: 2em;
-	/* Ensure items take full width of their grid cell */
-
-	box-sizing: border-box;
-	/* Give all items a fixed aspect ratio for consistent height */
-	/*  aspect-ratio: 3 / 2; */
-    width: 90vw;
-    height: 500px;
+    
 }
 
 .intro-text-grid-container {

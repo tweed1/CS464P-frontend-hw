@@ -88,10 +88,8 @@ const HardinessZonesMap = () => {
 			click: () => {
 				// navigate to zone page
 				// normalize zone to integer or a range string
-				const normalized = zone.includes("-")
-					? zone
-					: zone.replace(/[a-z]/i, "");
-				navigate(`/zone/${encodeURIComponent(normalized)}`);
+				const normalized = zone.replace(/[a-z]/i, "").trim();
+				navigate(`/zone/${normalized}`);
 			},
 		});
 		const label = `Zone: ${zone}`;
@@ -99,11 +97,10 @@ const HardinessZonesMap = () => {
 	};
 
 	return (
-		<div style={{ height: "100vh", width: "100%" }}>
 			<MapContainer
 				center={[39.5, -98.35]}
 				zoom={4}
-				style={{ height: "100%", width: "100%" }}>
+				style={{ height: "90%", width: "80%" }}>
 				<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 				{geo && (
 					<GeoJSON
@@ -113,7 +110,6 @@ const HardinessZonesMap = () => {
 					/>
 				)}
 			</MapContainer>
-		</div>
 	);
 };
 
