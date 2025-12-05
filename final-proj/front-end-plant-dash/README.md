@@ -89,3 +89,5 @@ Map session
 > On the zone-specific page, I will display the results in card form like all other search results and above that display an graph
 >
 >The user can click into a card and see more details on the plant
+
+> colors for charts: https://www.schemecolor.com/spring-monochromatic.php
