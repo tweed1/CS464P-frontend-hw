@@ -13,18 +13,12 @@ const SearchPlant = () => {
 	const [allPlants, setAllPlants] = useState([]);
 	const [error, setError] = useState(null);
 	const [searchTerm, setSearchTerm] = useState("");
+	const [currentPage, setCurrentPage] = useState(1);
+	const [lastPage, setLastPage] = useState(1);
 
-	const handleSubmit = async (event: any) => {
-		event.preventDefault();
-		setInstruction(false);
-		setError(null);
-
+	const fetchPlants = async (page = 1, term = searchTerm) => {
 		try {
 			setLoading(true);
-			/* const response = await fetch(
-				"https://trefle.io/api/v1/plants/search?token=${tApiKey}&q=coconut",
-				{ mode: "cors" }
-			); */
 			const response = await fetch(
 				`https://perenual.com/api/v2/species-list?key=${apiKey}&q=${searchTerm}`,
 				{ mode: "cors" }
@@ -34,8 +28,11 @@ const SearchPlant = () => {
 
 			const data = await response.json();
 			console.log(data);
-			setAllPlants(data.data || []);
+
+			setAllPlants(data.data ?? []);
 			console.dir(data);
+            setCurrentPage(data.current_page);
+            setLastPage(data.last_page);
 		} catch (error: any) {
 			setError(error);
 		} finally {
@@ -43,13 +40,30 @@ const SearchPlant = () => {
 		}
 	};
 
+	const handleSubmit = async (event: any) => {
+		event.preventDefault();
+		setInstruction(false);
+		setError(null);
+        setCurrentPage(1);
+        fetchPlants(1, searchTerm);
+
+    const goToNextPage = () => {
+        if (currentPage < lastPage) fetchPlants(currentPage + 1);
+    };
+
+    const goToPrevPage = () => {
+        if (currentPage > 1) fetchPlants(currentPage - 1);
+    };
+
+	};
+
 	return (
 		<div className="container-fluid">
-			<div className="row ">
+			<div className="d-flex flex-column">
 				<form
 					onSubmit={handleSubmit}
 					className="col-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
-                    <h2 className="text-start ps-2 my-ultra fs-1">Explore</h2>
+					<h2 className="text-start ps-2 my-ultra fs-1">Explore</h2>
 					<InputGroup className="mb-3" size="lg">
 						<Form.Control
 							value={searchTerm}
@@ -73,7 +87,7 @@ const SearchPlant = () => {
 				{loading && <p>Loading...</p>}
 				{error && <p> Error: </p>}
 
-				<div className="d-flex flex-wrap justify-content-center gap-4">
+				<div className="d-flex flex-wrap justify-content-center gap-4 card-container">
 					{allPlants.map((plant: any) => (
 						<Link
 							key={plant.id}
