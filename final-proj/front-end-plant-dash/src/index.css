@@ -22,6 +22,9 @@
 	--bs-primary: #004040;
 	--bs-darker-primary: #004040;
 }
+.leaflet-container { 
+    height: 400px; 
+}
 
 a {
 	font-weight: 500;
