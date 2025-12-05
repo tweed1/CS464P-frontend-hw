@@ -12,7 +12,7 @@ const AppLayout = () => {
 
 	return (
 		<>
-			<main className="custom-main-bg">
+			<main className="layout">
 				<NavBar />
 				<Outlet />
 			</main>

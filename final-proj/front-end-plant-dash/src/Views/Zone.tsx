@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import SearchPlant from "../Components/SearchPlantDB";
 import { useParams, useSearchParams } from "react-router";
+import ZoneBarChart from "../Components/ZoneBarChart";
+import ZoneRadarChart from "../Components/ZoneRadarChart";
 
 /* https://perenual.com/api/v2/species-list?key=[YOUR-API-KEY]&hardiness=1-13 */
 
@@ -13,7 +15,7 @@ const Zone = () => {
 	const [error, setError] = useState(null);
 	const params = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
-    const pageNumber = Number(searchParams.get("page") ?? 1);
+	const pageNumber = Number(searchParams.get("page") ?? 1);
 
 	useEffect(() => {
 		document.title = "zone";
@@ -46,8 +48,8 @@ const Zone = () => {
 	function goToNextPage() {
 		setSearchParams({ page: String(pageNumber + 1) });
 	}
-    function goToPrevPage() {
-		setSearchParams({ page: String(pageNumber -1) });
+	function goToPrevPage() {
+		setSearchParams({ page: String(pageNumber - 1) });
 	}
 
 	return (
@@ -55,13 +57,17 @@ const Zone = () => {
 			<div>
 				<h1 className="my-ultra">{params.id}</h1>
 				<h2>{pageNumber}</h2>
-                <button className="btn btn-secondary" onClick={goToPrevPage}>
+				<button className="btn btn-secondary" onClick={goToPrevPage}>
 					Back
 				</button>
 				<button className="btn btn-primary" onClick={goToNextPage}>
 					Next
 				</button>
+				<div>
+					<ZoneRadarChart />
+				</div>
 			</div>
+			<ZoneBarChart />
 		</div>
 	);
 };
