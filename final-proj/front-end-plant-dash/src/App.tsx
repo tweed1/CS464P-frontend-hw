@@ -19,6 +19,7 @@ import Footer from "./Components/Footer";
 import ZoneMap from "./Views/ZoneMap";
 import Zone from "./Views/Zone";
 import AppLayout from "./Layouts/AppLayout";
+import PlantDetails from "./Views/PlantDetails";
 
 const App = () => {
 	return (
@@ -30,6 +31,7 @@ const App = () => {
 						<Route path="search" element={<Search />} />
 						<Route path="zonemap" element={<ZoneMap />} />
 						<Route path="zone/:id" element={<Zone />} />
+                        <Route path="plantdetails" element={<PlantDetails />} />
 					</Route>
 				</Routes>
 			</Router>
