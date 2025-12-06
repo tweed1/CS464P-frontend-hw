@@ -53,14 +53,14 @@ const RadarChart = () => {
     }, []);
 
     const data = {
-        labels: ["Crew", "Passengers", "Cargo Capacity"],
+        labels: ["Crew", "Passengers", "Cargo Capacity", "test", "test2", "test3"],
         datasets: ships.map((ship, index) => ({
             label: ship.name,
-            data: [ship.crew, ship.passengers, ship.cargo_capacity],
+            data: [ship.crew, ship.passengers, ship.cargo_capacity, 500000000000, 100000000000, 200000000000],
             fill: true,
-            backgroundColor: `rgba(${50 + index * 40}, 150, 200, 0.2)`,
-            borderColor: `rgba(${50 + index * 40}, 150, 200, 1)`,
-            borderWidth: 2,
+            backgroundColor: 'rgba(92, 70, 26, 0.2)',
+            borderColor: 'rgba(103, 164, 63, 1)',
+            borderWidth: 3,
         })),
     };
 
@@ -84,8 +84,9 @@ const RadarChart = () => {
             {loading ? (
                 <p>Loading radar data...</p>
             ) : (
-                <Container fluid="sm">
-					<h2>Starship Stats (Radar Chart)</h2>
+                <Container fluid="sm" className="zone-radar-chart my-ultra">
+					<h2>Hardiness Zone Climate Forcast</h2>
+                    <p>Based on common statistics from the plants in that zone</p>
                     <Radar data={data} options={options} />
 				</Container>
             )}

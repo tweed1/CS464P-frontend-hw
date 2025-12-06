@@ -4,6 +4,8 @@ import SearchPlant from "../Components/SearchPlantDB";
 import { useParams, useSearchParams } from "react-router";
 import ZoneBarChart from "../Components/ZoneBarChart";
 import ZoneRadarChart from "../Components/ZoneRadarChart";
+import Results from "../Components/ZoneResultsList";
+import { Col, Container, Row } from "react-bootstrap";
 
 /* https://perenual.com/api/v2/species-list?key=[YOUR-API-KEY]&hardiness=1-13 */
 
@@ -55,17 +57,36 @@ const Zone = () => {
 	return (
 		<div className="pt-4 search-page">
 			<div>
-				<h1 className="my-ultra">{params.id}</h1>
-				<h2>{pageNumber}</h2>
-				<button className="btn btn-secondary" onClick={goToPrevPage}>
-					Back
-				</button>
-				<button className="btn btn-primary" onClick={goToNextPage}>
-					Next
-				</button>
-				<div>
-					<ZoneRadarChart />
-				</div>
+				<Container fluid className="m-0">
+					<Row>
+						<div>
+							<h1 className="my-ultra">{params.id}</h1>
+							<h2>{pageNumber}</h2>
+							<button
+								className="btn btn-secondary"
+								onClick={goToPrevPage}>
+								Back
+							</button>
+							<button
+								className="btn btn-primary"
+								onClick={goToNextPage}>
+								Next
+							</button>
+						</div>
+					</Row>
+					<Row className="pt-5">
+						<Col md={5}>
+                        <h2 className="my-ultra">Plants in Zone {params.id}</h2>
+							<Results />
+						</Col>
+                        <div className="vr vr-style"></div>
+						<Col md={6}>
+							<div>
+								<ZoneRadarChart />
+							</div>
+						</Col>
+					</Row>
+				</Container>
 			</div>
 			<ZoneBarChart />
 		</div>
