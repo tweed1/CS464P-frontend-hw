@@ -4,6 +4,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Card from "react-bootstrap/Card";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import placeholder from "../images/newton.jpeg";
 
 const SearchPlant = () => {
 	const apiKey = import.meta.env.VITE_PERENUAL_API_KEY;
@@ -16,11 +17,12 @@ const SearchPlant = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [lastPage, setLastPage] = useState(1);
 
+    /* fetches species list with given search term and page number */
 	const fetchPlants = async (page = 1, term = searchTerm) => {
 		try {
 			setLoading(true);
 			const response = await fetch(
-				`https://perenual.com/api/v2/species-list?key=${apiKey}&q=${searchTerm}`,
+				`https://perenual.com/api/v2/species-list?key=${apiKey}&q=${term}&page=${page}`,
 				{ mode: "cors" }
 			);
 
@@ -31,8 +33,8 @@ const SearchPlant = () => {
 
 			setAllPlants(data.data ?? []);
 			console.dir(data);
-            setCurrentPage(data.current_page);
-            setLastPage(data.last_page);
+			setCurrentPage(data.current_page);
+			setLastPage(data.last_page);
 		} catch (error: any) {
 			setError(error);
 		} finally {
@@ -40,26 +42,29 @@ const SearchPlant = () => {
 		}
 	};
 
+    /* handles api fetch on form submission = search */
 	const handleSubmit = async (event: any) => {
 		event.preventDefault();
 		setInstruction(false);
 		setError(null);
-        setCurrentPage(1);
-        fetchPlants(1, searchTerm);
+		setCurrentPage(1);
+		fetchPlants(1, searchTerm);
+	};
 
-    const goToNextPage = () => {
-        if (currentPage < lastPage) fetchPlants(currentPage + 1);
-    };
+    /* fetches the next page on click 'next' */
+	const goToNextPage = () => {
+		if (currentPage < lastPage) fetchPlants(currentPage + 1);
+	};
 
-    const goToPrevPage = () => {
-        if (currentPage > 1) fetchPlants(currentPage - 1);
-    };
-
+    /* fetches previous page on click 'previous' */
+	const goToPrevPage = () => {
+		if (currentPage > 1) fetchPlants(currentPage - 1);
 	};
 
 	return (
 		<div className="container-fluid">
 			<div className="d-flex flex-column">
+                {/* Search Bar */}
 				<form
 					onSubmit={handleSubmit}
 					className="col-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
@@ -87,7 +92,8 @@ const SearchPlant = () => {
 				{loading && <p>Loading...</p>}
 				{error && <p> Error: </p>}
 
-				<div className="d-flex flex-wrap justify-content-center gap-4 card-container">
+                {/* Card Results */}
+				<div className="d-flex flex-wrap justify-content-center align-items-center gap-4 card-container">
 					{allPlants.map((plant: any) => (
 						<Link
 							key={plant.id}
@@ -98,24 +104,27 @@ const SearchPlant = () => {
 							}}>
 							<Card
 								style={{ width: "250px", height: "330px" }}
-								className="shadow-sm">
+								className="shadow-sm p-3 align-items-center">
 								<Card.Img
 									variant="top"
 									src={
-										plant.default_image?.thumbnail ||
-										"final-proj/front-end-plant-dash/images" // todo
+										plant.default_image?.thumbnail ??
+										placeholder
 									}
 									alt={plant.common_name}
 									style={{
 										height: "160px",
+                                        width: "180px",
 										objectFit: "cover",
+                                        /* display: "block",
+                                        margin: "0 auto", */
 									}}
 								/>
 								<Card.Body>
-									<Card.Title className="fs-5">
+									<Card.Title className="fs-5 plant-card-title">
 										{plant.common_name || "Unknown"}
 									</Card.Title>
-									<Card.Text className="text-muted">
+									<Card.Text className="text-muted plant-card-text">
 										{plant.scientific_name || ""}
 									</Card.Text>
 								</Card.Body>
@@ -123,6 +132,39 @@ const SearchPlant = () => {
 						</Link>
 					))}
 				</div>
+                {/* * Page Navigation */}
+				{allPlants.length > 0 && (
+					<nav aria-label="Plant pagination" className="mt-4 mx-auto">
+						<ul className="pagination">
+							<li
+								className={`page-item ${
+									currentPage === 1 ? "disabled" : ""
+								}`}>
+								<button
+									className="page-link"
+									onClick={goToPrevPage}
+									disabled={currentPage === 1}>
+									Previous
+								</button>
+							</li>
+
+							<li
+								className={`page-item ${
+									currentPage === lastPage ? "disabled" : ""
+								}`}>
+								<button
+									className="page-link"
+									onClick={goToNextPage}
+									disabled={currentPage === lastPage}>
+									Next
+								</button>
+							</li>
+						</ul>
+						<p className="text-center text-muted">
+							Page {currentPage} of {lastPage}
+						</p>
+					</nav>
+				)}
 			</div>
 		</div>
 	);
