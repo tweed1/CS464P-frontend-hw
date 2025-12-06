@@ -55,10 +55,10 @@ const Zone = () => {
 	}
 
 	return (
-		<div className="pt-4 search-page">
+		<div className="pt-4 m-0 search-page">
 			<div>
 				<Container fluid className="m-0">
-					<Row>
+					{/* <Row>
 						<div>
 							<h1 className="my-ultra">{params.id}</h1>
 							<h2>{pageNumber}</h2>
@@ -73,8 +73,8 @@ const Zone = () => {
 								Next
 							</button>
 						</div>
-					</Row>
-					<Row className="pt-5">
+					</Row> */}
+					<Row className="">
 						<Col md={5}>
                         <h2 className="my-ultra">Plants in Zone {params.id}</h2>
 							<Results />
