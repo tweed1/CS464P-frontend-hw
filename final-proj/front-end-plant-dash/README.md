@@ -90,4 +90,8 @@ Map session
 >
 >The user can click into a card and see more details on the plant
 
+Chart session
 > colors for charts: https://www.schemecolor.com/spring-monochromatic.php
+
+Search pagination session
+> https://getbootstrap.com/docs/4.0/components/pagination/

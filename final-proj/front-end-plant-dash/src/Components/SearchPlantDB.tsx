@@ -20,7 +20,7 @@ const SearchPlant = () => {
 		try {
 			setLoading(true);
 			const response = await fetch(
-				`https://perenual.com/api/v2/species-list?key=${apiKey}&q=${searchTerm}`,
+				`https://perenual.com/api/v2/species-list?key=${apiKey}&q=${term}&page=${page}`,
 				{ mode: "cors" }
 			);
 
@@ -31,8 +31,8 @@ const SearchPlant = () => {
 
 			setAllPlants(data.data ?? []);
 			console.dir(data);
-            setCurrentPage(data.current_page);
-            setLastPage(data.last_page);
+			setCurrentPage(data.current_page);
+			setLastPage(data.last_page);
 		} catch (error: any) {
 			setError(error);
 		} finally {
@@ -44,17 +44,16 @@ const SearchPlant = () => {
 		event.preventDefault();
 		setInstruction(false);
 		setError(null);
-        setCurrentPage(1);
-        fetchPlants(1, searchTerm);
+		setCurrentPage(1);
+		fetchPlants(1, searchTerm);
+	};
 
-    const goToNextPage = () => {
-        if (currentPage < lastPage) fetchPlants(currentPage + 1);
-    };
+	const goToNextPage = () => {
+		if (currentPage < lastPage) fetchPlants(currentPage + 1);
+	};
 
-    const goToPrevPage = () => {
-        if (currentPage > 1) fetchPlants(currentPage - 1);
-    };
-
+	const goToPrevPage = () => {
+		if (currentPage > 1) fetchPlants(currentPage - 1);
 	};
 
 	return (
@@ -123,6 +122,39 @@ const SearchPlant = () => {
 						</Link>
 					))}
 				</div>
+                {/* * Page Navigation */}
+				{allPlants.length > 0 && (
+					<nav aria-label="Plant pagination" className="mt-4 mx-auto">
+						<ul className="pagination">
+							<li
+								className={`page-item ${
+									currentPage === 1 ? "disabled" : ""
+								}`}>
+								<button
+									className="page-link"
+									onClick={goToPrevPage}
+									disabled={currentPage === 1}>
+									Previous
+								</button>
+							</li>
+
+							<li
+								className={`page-item ${
+									currentPage === lastPage ? "disabled" : ""
+								}`}>
+								<button
+									className="page-link"
+									onClick={goToNextPage}
+									disabled={currentPage === lastPage}>
+									Next
+								</button>
+							</li>
+						</ul>
+						<p className="text-center text-muted">
+							Page {currentPage} of {lastPage}
+						</p>
+					</nav>
+				)}
 			</div>
 		</div>
 	);
