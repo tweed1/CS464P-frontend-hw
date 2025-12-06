@@ -7,13 +7,13 @@
 	background-color: #ebf9eb;
 }
 
-.layout{
+.layout {
 	/* background-color: #CDD7CC; */
 	background-color: #ebf9eb;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
 }
 
 .success {
@@ -60,34 +60,32 @@
 }
 
 .my-antonio {
-    font-family: "Antonio", serif;
+	font-family: "Antonio", serif;
 }
 
 .my-default {
-    font-family: sans-serif;
+	font-family: sans-serif;
 }
 
 .zone-grid-container {
-	
-    background-color: #004040; /* Blue background */
+	background-color: #004040; /* Blue background */
 	color: white;
 	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	box-sizing: border-box;
-    width: 90vw;
-    height: 100vh;
-    display: grid;
+	width: 90vw;
+	height: 100vh;
+	display: grid;
 	gap: 40px;
 	width: 100%;
 	justify-items: center;
-    align-items: center;
+	align-items: center;
 }
 
 .zone-item {
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    
+	text-align: center;
+	align-items: center;
+	justify-content: center;
 }
 
 .intro-text-grid-container {
@@ -98,13 +96,13 @@
 	justify-items: center;
 }
 
-.intro-text-item { 
+.intro-text-item {
 	background-color: #004040; /* Blue background */
 	color: white;
 	padding: 10px;
 	text-align: center;
-    align-items: center;
-    justify-content: center;
+	align-items: center;
+	justify-content: center;
 	border-radius: 8px;
 
 	box-sizing: border-box;
@@ -112,29 +110,43 @@
 }
 
 /* * Search Page */
-/* breaks page expanding when search results return */
+
 .search-page {
-    min-height: 100vh;
-    margin-top: 8vh;
+	min-height: 100vh;
+	margin-top: 8vh;
 }
 
 .card-container {
-    padding-bottom: 40px;
+	padding-bottom: 40px;
+}
+
+.plant-card-title {
+	font-size: 1rem; 
+	font-weight: 600;
+	white-space: wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.plant-card-text {
+	font-size: 0.85rem;
+	color: #6c757d;
+	overflow: hidden;
 }
 
 .footer-col {
-    color:#ebf9eb
+	color: #ebf9eb;
 }
 
 .foot-row {
-    justify-content: space-between;
-    padding-top: 4vh;
-    color:#93ba91;
+	justify-content: space-between;
+	padding-top: 4vh;
+	color: #93ba91;
 }
 
 .link {
-    padding: auto;
+	padding: auto;
 }
 .link:hover {
-    color:#004040;
+	color: #004040;
 }
