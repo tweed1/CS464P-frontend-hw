@@ -75,14 +75,14 @@ const Zone = () => {
 						</div>
 					</Row> */}
 					<Row className="">
-						<Col md={5}>
+						<Col lg={5} sm={12}>
                         <h2 className="my-ultra">Plants in Zone {params.id}</h2>
 							<Results />
 						</Col>
                         <div className="vr vr-style"></div>
-						<Col md={6}>
+						<Col lg={6} sm={12}>
 							<div>
-								<ZoneRadarChart />
+								<ZoneRadarChart zoneId={params.id} />
 							</div>
 						</Col>
 					</Row>

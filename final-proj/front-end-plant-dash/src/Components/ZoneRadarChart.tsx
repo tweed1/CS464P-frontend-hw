@@ -4,29 +4,67 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Stack from "react-bootstrap/Stack";
 import { Radar } from "react-chartjs-2";
+import { useParams, useSearchParams } from "react-router";
+
 import {
-    Chart as ChartJS,
-    RadialLinearScale,
-    PointElement,
-    LineElement,
-    Filler,
-    Tooltip,
-    Legend,
+	Chart as ChartJS,
+	RadialLinearScale,
+	PointElement,
+	LineElement,
+	Filler,
+	Tooltip,
+	Legend,
 } from "chart.js";
 
 ChartJS.register(
-    RadialLinearScale,
-    PointElement,
-    LineElement,
-    Filler,
-    Tooltip,
-    Legend
+	RadialLinearScale,
+	PointElement,
+	LineElement,
+	Filler,
+	Tooltip,
+	Legend
 );
 
-const RadarChart = () => {
-    const [ships, setShips] = useState([]);
-    const [loading, setLoading] = useState(true);
+const RadarChart = (props: { zoneId: string }) => {
+	type ZoneData = {
+		edibleLeaf: number;
+		edibleFruit: number;
+		cuisine: number;
+		medicinal: number;
+		poisonousToHumans: number;
+		poisonousToPets: number;
+		fruits: number;
+	};
+	const [ships, setShips] = useState([]);
+	const [details, setDetails] = useState<null | ZoneData>(null);
+	const [error, setError] = useState();
+	const [loading, setLoading] = useState(true);
+	const params = useParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch(
+					"../graph_data/zone_analysis.json"
+				);
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+				const jsonData = await response.json();
+				console.dir(jsonData);
+				console.dir(jsonData[props.zoneId]);
+
+				setDetails(jsonData[props.zoneId]);
+			} catch (err) {
+				setError(err);
+			} finally {
+				setLoading(false);
+			}
+		};
+		fetchData();
+	}, []);
+	/* 
     useEffect(() => {
         const fetchShips = async () => {
             try {
@@ -50,48 +88,110 @@ const RadarChart = () => {
         };
 
         fetchShips();
-    }, []);
+    }, []); */
 
-    const data = {
-        labels: ["Crew", "Passengers", "Cargo Capacity", "test", "test2", "test3"],
-        datasets: ships.map((ship, index) => ({
-            label: ship.name,
-            data: [ship.crew, ship.passengers, ship.cargo_capacity, 500000000000, 100000000000, 200000000000],
-            fill: true,
-            backgroundColor: 'rgba(92, 70, 26, 0.2)',
-            borderColor: 'rgba(103, 164, 63, 1)',
-            borderWidth: 3,
-        })),
-    };
+	if (details === null) {
+		return (
+			<div>
+				<p> loading</p>
+			</div>
+		);
+	}
 
-    const options = {
-        responsive: true,
-        scales: {
-            r: {
-                beginAtZero: true,
-                angleLines: { color: "#ccc" },
-                grid: { color: "#ddd" },
-                pointLabels: { font: { size: 14 } },
-            },
-        },
-        plugins: {
-            legend: { position: "top" },
-        },
-    };
+	const data = {
+		labels: [
+			"Edible Leaf",
+			"Edible Fruit",
+			"Cuisine",
+			"Medicinal",
+			"Poisonous to Humans",
+			"Poisonous to Pets",
+			"Fruits",
+		],
+		datasets: [
+			{
+				label: `Zone ${props.zoneId} Plant Consumption Stats`,
+				data: [
+					details.edibleLeaf,
+					details.edibleFruit,
+					details.cuisine,
+					details.medicinal,
+					details.poisonousToHumans,
+					details.poisonousToPets,
+					details.fruits,
+				],
+				fill: true,
+				backgroundColor: "rgba(92, 70, 26, 0.2)",
+				borderColor: "rgba(103, 164, 63, 1)",
+				borderWidth: 3,
+			},
+		],
+	};
 
-    return (
-        <div>
-            {loading ? (
-                <p>Loading radar data...</p>
-            ) : (
-                <Container fluid="sm" className="zone-radar-chart my-ultra">
-					<h2>Hardiness Zone Climate Forcast</h2>
-                    <p>Based on common statistics from the plants in that zone</p>
-                    <Radar data={data} options={options} />
+	const options = {
+		responsive: true,
+		scales: {
+			r: {
+				beginAtZero: true,
+				angleLines: { color: "#ccc" },
+				grid: { color: "#ddd" },
+				pointLabels: { font: { size: 14 } },
+			},
+		},
+		plugins: {
+			legend: { position: "top" },
+		},
+	};
+
+	return (
+		<div>
+			{loading ? (
+				<p>Loading radar data...</p>
+			) : (
+				<Container fluid="lg" className="zone-radar-chart my-ultra">
+					<h2>Hardiness Zone Plant Consumption</h2>
+					<p>
+						Based on common statistics from the plants in that zone
+					</p>
+					<Radar data={data} options={options} />
 				</Container>
-            )}
-        </div>
-    );
+			)}
+		</div>
+	);
 };
 
 export default RadarChart;
+
+/* 
+soil
+sunlight
+
+drought tolerant
+salt tolerant
+invasive
+tropical
+rare
+indoor
+fruits
+flowers
+
+origin
+cycle
+watering
+
+consumption profile:
+edible_leaf,
+edible_fruit
+cuisine
+medicinal
+poisonous_to_humans
+poisonous_to_pets
+fruits
+harvest season
+
+
+x% of plants in in zone y are perennial
+
+
+
+*/
