@@ -133,9 +133,9 @@ const RadarChart = (props: { zoneId: string }) => {
 		scales: {
 			r: {
 				beginAtZero: true,
-				angleLines: { color: "#ccc" },
-				grid: { color: "#ddd" },
-				pointLabels: { font: { size: 14 } },
+				angleLines: { color: "#a2a2a2ff" },
+				grid: { color: "#a2a2a2ff" },
+				pointLabels: { font: { size: 14 , weight: "bold",} },
 			},
 		},
 		plugins: {
