@@ -23,10 +23,9 @@ const Home = () => {
 						Welcome to the Plantify Dashboard!
 					</h1>
 					<p className="my-agu fs-5 pb-5">- Plantify Your Life -</p>
-
-					<SearchPlant />
+					{/* <SearchPlant /> */}
 				</div>
-				<div className="container justify-content-center d-flex flex-column pt-5">
+				<div className="container justify-content-center d-flex flex-column pt-0">
 					<h2 className="my-ultra pb-0">Zone Map</h2>
 				</div>
 				<div className="zone-grid-container my-4">< HardinessZones /></div>
