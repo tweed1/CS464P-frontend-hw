@@ -102,11 +102,11 @@ const RadarChart = (props: { zoneId: string }) => {
 		labels: [
 			"Edible Leaf",
 			"Edible Fruit",
-			"Cuisine",
+			"Used in Cuisine",
 			"Medicinal",
 			"Poisonous to Humans",
 			"Poisonous to Pets",
-			"Fruits",
+			"Has Fruits",
 		],
 		datasets: [
 			{
@@ -149,9 +149,9 @@ const RadarChart = (props: { zoneId: string }) => {
 				<p>Loading radar data...</p>
 			) : (
 				<Container fluid="lg" className="zone-radar-chart my-ultra">
-					<h2>Hardiness Zone Plant Consumption</h2>
+					<h2>Can it Consumify?</h2>
 					<p>
-						Based on common statistics from the plants in that zone
+						What's the average edibleness profile in this zone?
 					</p>
 					<Radar data={data} options={options} />
 				</Container>
