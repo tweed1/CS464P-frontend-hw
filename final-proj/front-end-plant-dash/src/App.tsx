@@ -20,6 +20,7 @@ import ZoneMap from "./Views/ZoneMap";
 import Zone from "./Views/Zone";
 import AppLayout from "./Layouts/AppLayout";
 import PlantDetails from "./Views/PlantDetails";
+import MysteryDetails from "./Views/MysteryPlant";
 
 const App = () => {
 	return (
@@ -32,6 +33,7 @@ const App = () => {
 						<Route path="zonemap" element={<ZoneMap />} />
 						<Route path="zone/:id" element={<Zone />} />
                         <Route path="plant-details/:id" element={<PlantDetails />} />
+                        <Route path="mystery-plant" element={<MysteryDetails />} />
 					</Route>
 				</Routes>
 			</Router>
