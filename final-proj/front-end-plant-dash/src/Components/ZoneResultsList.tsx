@@ -83,7 +83,7 @@ const Results = () => {
 							{allPlants.map((plant: any) => (
 								<Link
 									key={plant.id}
-									to={`/plant/${plant.id}`}
+									to={`/plant-details/${plant.id}`}
 									style={{
 										textDecoration: "none",
 										color: "inherit",

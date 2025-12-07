@@ -14,6 +14,7 @@ type Plant = {
 	origin: string[];
 	cycle: string;
 	sunlight: string[];
+    description: string;
 	hardiness: {
 		min: string;
 		max: string;
@@ -30,7 +31,7 @@ type Plant = {
 		small_url: string;
 		thumbnail: string;
 	};
-    other_images: {
+    other_images?: {
 		license: 0;
 		license_name: string;
 		license_url: string;
@@ -72,6 +73,7 @@ const PlantDetails = () => {
 				if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
 				const incomingData = await response.json();
+                console.dir(incomingData);
 				setPlant(incomingData);
 			} catch (error: any) {
 				setError(error);
@@ -100,7 +102,6 @@ const PlantDetails = () => {
 							style={{
                                 width: "300px",
                                 height: "300px",
-
 								objectFit: "cover",
 							}}
 							rounded
@@ -111,8 +112,9 @@ const PlantDetails = () => {
 						className="p-0 mx-1 d-flex flex-column align-items-start">
 						<h1 className="my-ultra">{plant.common_name} </h1>
 						<h2 className="">{plant.scientific_name} </h2>
+                        <p>{plant.description}</p>
 						<p className="">Family: {plant.family} </p>
-						<p className="">Origin: {plant.origin.join(" ")}</p>
+						<p className="">Origin: {plant.origin.join()}</p>
 					</Col>
 				</Row>
 			</Container>
@@ -129,7 +131,7 @@ const PlantDetails = () => {
 						<p className="fs-4"> Watering: </p>
 						<p className="fs-4">
 							{" "}
-							Sunlight: {plant.sunlight.join(" ")}
+							Sunlight: {plant.sunlight.join()}
 						</p>
 						{plant.edible_to_humans && (
 							<p className="fs-4"> Is edible</p>
@@ -145,6 +147,9 @@ const PlantDetails = () => {
 						</p>
 					</Col>
 				</Row>
+                <Row>
+{/*                     <div>{plant.other_images?.map((image)=> <img src={image.small_url}> </img>)}</div>
+ */}                </Row>
 			</Container>
 		</div>
 	);
