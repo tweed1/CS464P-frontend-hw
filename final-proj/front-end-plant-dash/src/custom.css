@@ -32,13 +32,13 @@
 
 /* Change border color for a primary button */
 .btn-secondary {
-	background-color: #93ba91; /* Change to your desired color */
+	background-color: #93ba91; 
 	border-color: #93ba91;
 }
 
 /* Change border color on hover */
 .btn-secondary:hover {
-	border-color: green; /* Change to your desired color */
+	border-color: green; 
 }
 
 /* Change border color on focus (the blue outline) */
@@ -82,6 +82,22 @@
     color:#004040;
     padding: 0;
 }
+
+.hr-style {
+    opacity: .50;
+}
+
+@media (min-width:810px){
+    .hr-style {
+    width: 60vw;
+}
+}
+@media (max-width:809px){
+    .hr-style {
+    width: 90vw;
+}
+}
+
 .zone-grid-container {
 	background-color: #004040; /* Blue background */
 	color: white;
