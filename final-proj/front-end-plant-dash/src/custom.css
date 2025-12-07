@@ -32,13 +32,13 @@
 
 /* Change border color for a primary button */
 .btn-secondary {
-	background-color: #93ba91; 
+	background-color: #93ba91;
 	border-color: #93ba91;
 }
 
 /* Change border color on hover */
 .btn-secondary:hover {
-	border-color: green; 
+	border-color: green;
 }
 
 /* Change border color on focus (the blue outline) */
@@ -74,28 +74,28 @@
 }
 
 .zone-radar-chart {
-	max-width: 80vw;
+	max-width: 90vw;
 }
 
 .vr-style {
-    width: 2px;
-    color:#004040;
-    padding: 0;
+	width: 2px;
+	color: #004040;
+	padding: 0;
 }
 
 .hr-style {
-    opacity: .50;
+	opacity: 0.5;
 }
 
-@media (min-width:810px){
-    .hr-style {
-    width: 60vw;
+@media (min-width: 810px) {
+	.hr-style {
+		width: 60vw;
+	}
 }
-}
-@media (max-width:809px){
-    .hr-style {
-    width: 90vw;
-}
+@media (max-width: 809px) {
+	.hr-style {
+		width: 90vw;
+	}
 }
 
 .zone-grid-container {
@@ -117,6 +117,10 @@
 	text-align: center;
 	align-items: center;
 	justify-content: center;
+}
+
+.custom-border {
+	border-right: 1px solid #005f5faf;
 }
 
 .intro-text-grid-container {
@@ -181,32 +185,30 @@
 	padding: auto;
 }
 .link:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 .nav-style {
-
 }
 
 .nav-style:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 .nav-pill {
-  position: relative;
-  z-index: 1;
+	position: relative;
+	z-index: 1;
 }
 
 .nav-pill::after {
-  content: "";
-  position: absolute;
-  inset: 5px 2px; /* controls pill size */
-  border-radius: 999px; /* create pill shape */
-  z-index: -1;
-  transition: background-color 0.2s ease;
+	content: "";
+	position: absolute;
+	inset: 5px 2px; /* controls pill size */
+	border-radius: 999px; /* create pill shape */
+	z-index: -1;
+	transition: background-color 0.2s ease;
 }
 
 .nav-pill:hover::after {
-  background-color:#93ba91; /* btn-secondary */
+	background-color: #93ba91; /* btn-secondary */
 }
-

@@ -95,7 +95,7 @@ const PlantDetails = () => {
 		<div className="pt-4">
 			<Container fluid className="p-0">
 				<Row>
-					<Col md={3} className="p-0 border">
+					<Col md={3} className="p-0">
 						{" "}
 						<Image
 							src={ plant.default_image.small_url ?? logo}

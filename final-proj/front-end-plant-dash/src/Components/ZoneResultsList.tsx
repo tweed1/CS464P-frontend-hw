@@ -73,7 +73,7 @@ const Results = () => {
 					className="custom-primary display-results-btn mb-3"
 					variant="primary"
 					id="button-addon2">
-					Show Result List
+					Show List
 				</Button>
 				{loading && <p>Loading...</p>}
 				{error && <p> Error: </p>}
@@ -113,9 +113,6 @@ const Results = () => {
 											<Card.Title className="fs-5 plant-card-title">
 												{plant.common_name || "Unknown"}
 											</Card.Title>
-											<Card.Text className="text-muted plant-card-text">
-												{plant.scientific_name || ""}
-											</Card.Text>
 										</Card.Body>
 									</Card>
 								</Link>

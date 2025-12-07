@@ -148,7 +148,7 @@ const RadarChart = (props: { zoneId: string }) => {
 			{loading ? (
 				<p>Loading radar data...</p>
 			) : (
-				<Container fluid="lg" className="zone-radar-chart my-ultra">
+				<Container fluid="lg" className="zone-radar-chart my-ultra p-0">
 					<h2>Can it Consumify?</h2>
 					<p>
 						What's the average edibleness profile in this zone?

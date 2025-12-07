@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import SearchPlant from "../Components/SearchPlantDB";
 import { useParams, useSearchParams } from "react-router";
 import ZoneBarChart from "../Components/ZoneBarChart";
 import ZoneRadarChart from "../Components/ZoneRadarChart";
@@ -22,11 +20,11 @@ const Zone = () => {
 	useEffect(() => {
 		document.title = "zone";
 
-		const fetchData = async () => {
+		/* const fetchData = async () => {
 			setInstruction(false);
 			setError(null);
 
-			/* try {
+			try {
 				setLoading(true);
 				const response = await fetch(
 					`https://perenual.com/api/v2/species-list?key=${apiKey}&hardiness=${params.id}`,
@@ -43,52 +41,33 @@ const Zone = () => {
 				setError(error);
 			} finally {
 				setLoading(false);
-			} */
+			}
 		};
-		fetchData();
+		fetchData(); */
 	}, [params.id]);
-	function goToNextPage() {
-		setSearchParams({ page: String(pageNumber + 1) });
-	}
-	function goToPrevPage() {
-		setSearchParams({ page: String(pageNumber - 1) });
-	}
 
 	return (
-		<div className="pt-4 m-0 search-page">
+		<div className="m-0 search-page pb-5 pt-2">
 			<div>
-				<Container fluid className="m-0">
-					<Row>
-						<div>
-							<h1 className="my-ultra">{params.id}</h1>
-							<h2>{pageNumber}</h2>
-							<button
-								className="btn btn-secondary"
-								onClick={goToPrevPage}>
-								Back
-							</button>
-							<button
-								className="btn btn-primary"
-								onClick={goToNextPage}>
-								Next
-							</button>
-						</div>
-					</Row>
-					<Row className="">
-						<Col lg={5} sm={12}>
-                        <h2 className="my-ultra">Plants in Zone {params.id}</h2>
+				<Container fluid className="m-0 p-0">
+					<Row className="p-0">
+						<Col lg={6} sm={12} className="p-0 custom-border">
+							<h2 className="my-ultra">
+								Plants in Zone {params.id}
+							</h2>
 							<Results />
 						</Col>
-                        <div className="vr vr-style"></div>
-						<Col lg={6} sm={12}>
+						<Col lg={6} sm={12} className="">
 							<div>
 								<ZoneRadarChart zoneId={params.id} />
+							</div>
+							<div>
+								<ZoneBarChart />
 							</div>
 						</Col>
 					</Row>
 				</Container>
 			</div>
-			<ZoneBarChart />
 		</div>
 	);
 };
