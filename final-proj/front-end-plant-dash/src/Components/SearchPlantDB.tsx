@@ -8,7 +8,6 @@ import placeholder from "../images/newton.jpeg";
 
 const SearchPlant = () => {
 	const apiKey = import.meta.env.VITE_PERENUAL_API_KEY;
-	const tApiKey = import.meta.env.VITE_TREFLE_TOKEN;
 	const [loading, setLoading] = useState(false);
 	const [instruction, setInstruction] = useState(true);
 	const [allPlants, setAllPlants] = useState([]);
@@ -97,7 +96,7 @@ const SearchPlant = () => {
 					{allPlants.map((plant: any) => (
 						<Link
 							key={plant.id}
-							to={`/plant/${plant.id}`}
+							to={`/plant-details/${plant.id}`}
 							style={{
 								textDecoration: "none",
 								color: "inherit",

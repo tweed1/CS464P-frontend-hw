@@ -4,6 +4,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Card from "react-bootstrap/Card";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router";
 import placeholder from "../images/newton.jpeg";
 
 const Results = () => {
@@ -17,13 +18,15 @@ const Results = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [lastPage, setLastPage] = useState(1);
 	const [loadResults, setLoadResults] = useState(false);
+    const params = useParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 
 	/* fetches species list with given search term and page number */
 	const fetchPlants = async (page = 1, term = searchTerm) => {
 		try {
 			setLoading(true);
 			const response = await fetch(
-				`https://perenual.com/api/v2/species-list?key=${apiKey}&q=${term}&page=${page}`,
+				`https://perenual.com/api/v2/species-list?key=${apiKey}&q=${term}&page=${page}&hardiness=${params.id}`,
 				{ mode: "cors" }
 			);
 
@@ -67,7 +70,7 @@ const Results = () => {
 				<Button
 					type="button"
 					onClick={displayResults}
-					className="custom-primary display-results-btn"
+					className="custom-primary display-results-btn mb-3"
 					variant="primary"
 					id="button-addon2">
 					Show Result List
@@ -80,7 +83,7 @@ const Results = () => {
 							{allPlants.map((plant: any) => (
 								<Link
 									key={plant.id}
-									to={`/plant/${plant.id}`}
+									to={`/plant-details/${plant.id}`}
 									style={{
 										textDecoration: "none",
 										color: "inherit",

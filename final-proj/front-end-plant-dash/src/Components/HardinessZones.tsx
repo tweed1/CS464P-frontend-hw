@@ -47,20 +47,6 @@ const HardinessZonesMap = () => {
 			}
 		};
             fetchData();
-		/* const response = fetch("/ophz/ophz.geojson")
-			.then((r) => {
-				setGeo(r.data);
-			})
-			.catch((error) => console.error(error)); */
-
-		/* .get("/ophz/ophz-us48.geojson")
-			.then((r) => setGeo(r.data))
-			.catch((err) => {
-				console.error("Failed loading geojson", err);
-			}); */
-
-		// Option B: fetch raw from GitHub (slower) - example:
-		// axios.get('https://raw.githubusercontent.com/kgjenkins/ophz/master/topojson/ophz-us48-topo.json')
 	}, []);
 
 	const style = (feature) => {
