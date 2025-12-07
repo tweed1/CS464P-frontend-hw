@@ -183,3 +183,30 @@
 .link:hover {
     text-decoration: underline;
 }
+
+.nav-style {
+
+}
+
+.nav-style:hover {
+    text-decoration: underline;
+}
+
+.nav-pill {
+  position: relative;
+  z-index: 1;
+}
+
+.nav-pill::after {
+  content: "";
+  position: absolute;
+  inset: 5px 2px; /* controls pill size */
+  border-radius: 999px; /* create pill shape */
+  z-index: -1;
+  transition: background-color 0.2s ease;
+}
+
+.nav-pill:hover::after {
+  background-color:#93ba91; /* btn-secondary */
+}
+
