@@ -174,7 +174,6 @@
 
 .foot-row {
 	justify-content: space-between;
-	padding-top: 4vh;
 	color: #93ba91;
 }
 
@@ -182,5 +181,5 @@
 	padding: auto;
 }
 .link:hover {
-	color: #004040;
+    text-decoration: underline;
 }
