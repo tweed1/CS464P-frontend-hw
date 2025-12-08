@@ -33,9 +33,7 @@ const BarChart = (props: { zoneId: string }) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch(
-					"graph_data/zone_analysis_2.json"
-				);
+				const response = await fetch("graph_data/zone_analysis_2.json");
 				if (!response.ok) {
 					throw new Error(`HTTP error! status: ${response.status}`);
 				}
@@ -53,11 +51,9 @@ const BarChart = (props: { zoneId: string }) => {
 		fetchData();
 	}, []);
 
-    if (error) {
-        return (
-            <p> Something went wrong :( </p>
-        )
-    }
+	if (error) {
+		return <p> Something went wrong :( </p>;
+	}
 
 	if (!details) {
 		return (
@@ -147,9 +143,13 @@ const BarChart = (props: { zoneId: string }) => {
 				<p>Loading data...</p>
 			) : (
 				<Container fluid="sm" className="my-ultra">
+					<p id="chart-desc" className="visually-hidden">
+						Bar chart showing plant counts by category.
+					</p>
+
 					<h3>Zone {props.zoneId} Edibleness Totals</h3>
 					<br />
-					<Bar data={data} options={options} />
+					<Bar data={data} options={options} aria-describedby="chart-desc"/>
 				</Container>
 			)}
 		</div>

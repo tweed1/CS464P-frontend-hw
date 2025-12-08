@@ -126,11 +126,14 @@ const RadarChart = (props: { zoneId: string }) => {
 				<p>Loading radar data...</p>
 			) : (
 				<Container fluid="lg" className="zone-radar-chart my-ultra p-0">
+                    <p id="radar-chart-desc" className="visually-hidden">
+						Radar chart showing plant averages by edibleness category.
+					</p>
 					<h2>Can it Consumify?</h2>
 					<p>
 						What's the average edibleness profile in this zone?
 					</p>
-					<Radar data={data} options={options} />
+					<Radar data={data} options={options}  aria-describedby="radar-chart-desc"/>
 				</Container>
 			)}
 		</div>

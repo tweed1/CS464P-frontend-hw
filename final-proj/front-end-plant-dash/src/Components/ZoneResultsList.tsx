@@ -77,7 +77,7 @@ const Results = () => {
 												plant.default_image
 													?.thumbnail ?? placeholder
 											}
-											alt={plant.common_name}
+											alt={`Image of ${plant.common_name}`}
 											style={{
 												height: "80px",
 												width: "110px",

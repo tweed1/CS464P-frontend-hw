@@ -80,7 +80,7 @@ const SearchPlant = () => {
 							type="submit"
 							className="custom-primary"
 							variant="primary"
-							id="button-addon2">
+							id="basic-addon2">
 							Search
 						</Button>
 					</InputGroup>

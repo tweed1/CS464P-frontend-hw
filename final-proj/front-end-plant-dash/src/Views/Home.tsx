@@ -12,13 +12,13 @@ const Home = () => {
 					<h1 className="my-ultra ">
 						Welcome to the Plantify Dashboard!
 					</h1>
-					<p className="my-agu fs-4">- Plantify Your Life -</p>
+					<h2 className="my-agu fs-4">- Plantify Your Life -</h2>
                     <p className="pb-0 my-0 my-default"> Explore a zone or search for specific plants</p>
                     <hr className="border-2 border-top rounded border-dark my-3 hr-style" />
 					{/* <SearchPlant /> */}
 				</div>
 				<div className="container justify-content-center d-flex flex-column pt-0">
-					<h2 className="my-ultra pb-0 mt-3">Zone Map</h2>
+					<h3 className="my-ultra pb-0 mt-3 fs-2">Zone Map</h3>
 					<p>Click a zone to explore the dashboard's capabilities</p>
 				</div>
 				<div className="zone-grid-container my-1">

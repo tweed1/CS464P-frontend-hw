@@ -20,7 +20,7 @@ const Footer = () => {
 						<Stack className="ps-5 ms-5">
 							<Image
 								src={logo}
-								alt="logo"
+								alt="looking down at a purple bachelor button growing in a field"
 								rounded
 								width={120}
 								height={120}></Image>
