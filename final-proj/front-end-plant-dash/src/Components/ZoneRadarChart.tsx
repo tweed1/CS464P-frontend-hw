@@ -87,7 +87,7 @@ const RadarChart = (props: { zoneId: string }) => {
 		],
 		datasets: [
 			{
-				label: `Zone ${props.zoneId} Plant Consumption Stats`,
+				label: `Zone ${props.zoneId} Percentage of Plant Consumption Stats`,
 				data: [
 					details.edibleLeaf.percentage,
 					details.edibleFruit.percentage,
@@ -117,6 +117,15 @@ const RadarChart = (props: { zoneId: string }) => {
 		},
 		plugins: {
 			legend: { position: "top" },
+            tooltip: {
+                callbacks: {
+                    label: function (context: any) {
+                        const label = context.dataset.label || "";
+                        const value = context.parsed.r;
+                        return `${label}: ${value.toFixed(2)}%`;
+                    }
+                }
+            }
 		},
     } as const;
 

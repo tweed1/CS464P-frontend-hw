@@ -146,7 +146,7 @@ const PlantDetails = () => {
 							{plant.hardiness.max}
 						</p>
 						<p className="">
-							Pests: {plant.pest_susceptibility.join(" ")}
+							Pests: {plant.pest_susceptibility.join()}
 						</p>
 					</Col>
 				</Row>

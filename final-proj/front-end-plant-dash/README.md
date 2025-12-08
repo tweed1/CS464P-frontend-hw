@@ -115,9 +115,10 @@ Using wave, I stepped through the pages to see where I could improve. There we s
 
 On the page the displays the graphs I am getting this axe core error "[role="img"] elements must have alternative text https://dequeuniversity.com/rules/axe/4.11/role-img-alt?application=axeAPI". Some fixes I found did not resolve the error but I updated the aria labels regardless.
 
-### Accessing the dashboard
-The Plantify dashbaord is deployed on GitHub pages here. To access the development version of it you can: 
-`npm run dev`
-and include and additional `/#` to the url the first time you launch it.
+# Accessing the dashboard
+>The Plantify dashbaord is deployed on GitHub pages here. To access the development version of it you can: 
+>>`npm run dev`
+>
+>and include and additional `/#` to the url the first time you launch it.
 
 to make updates the the deployment link. run `npm run deploy`
