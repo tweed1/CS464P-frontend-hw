@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Stack from "react-bootstrap/Stack";
 import { Radar } from "react-chartjs-2";
-import { useParams, useSearchParams } from "react-router";
 
 import {
 	Chart as ChartJS,
@@ -26,35 +22,35 @@ ChartJS.register(
 );
 
 const RadarChart = (props: { zoneId: string }) => {
+    type Entry = {
+        total: number;
+        percentage: number;
+    }
 	type ZoneData = {
-		edibleLeaf: number;
-		edibleFruit: number;
-		cuisine: number;
-		medicinal: number;
-		poisonousToHumans: number;
-		poisonousToPets: number;
-		fruits: number;
+		edibleLeaf: Entry;
+		edibleFruit: Entry;
+		cuisine: Entry;
+		medicinal: Entry;
+		poisonousToHumans: Entry;
+		poisonousToPets: Entry;
+		fruits: Entry;
 	};
-	const [ships, setShips] = useState([]);
 	const [details, setDetails] = useState<null | ZoneData>(null);
-	const [error, setError] = useState();
+	const [error, setError] = useState<any>();
 	const [loading, setLoading] = useState(true);
-	const params = useParams();
-	const [searchParams, setSearchParams] = useSearchParams();
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const response = await fetch(
-					"../graph_data/zone_analysis.json"
+					"graph_data/zone_analysis_2.json"
 				);
 				if (!response.ok) {
 					throw new Error(`HTTP error! status: ${response.status}`);
 				}
 				const jsonData = await response.json();
-				console.dir(jsonData);
-				console.dir(jsonData[props.zoneId]);
-
+				/* console.dir(jsonData);
+				console.dir(jsonData[props.zoneId]); */
 				setDetails(jsonData[props.zoneId]);
 			} catch (err) {
 				setError(err);
@@ -64,31 +60,12 @@ const RadarChart = (props: { zoneId: string }) => {
 		};
 		fetchData();
 	}, []);
-	/* 
-    useEffect(() => {
-        const fetchShips = async () => {
-            try {
-                const response = await fetch("https://swapi.dev/api/starships/");
-                const data = await response.json();
 
-                const cleaned = data.results.slice(0, 5).map((ship) => ({
-                    name: ship.name,
-                    crew: parseInt(ship.crew.replace(/,/g, "")) || 0,
-                    passengers: parseInt(ship.passengers.replace(/,/g, "")) || 0,
-                    cargo_capacity:
-                        parseInt(ship.cargo_capacity.replace(/,/g, "")) || 0,
-                }));
-
-                setShips(cleaned);
-                setLoading(false);
-            } catch (err) {
-                console.error("Error:", err);
-                setLoading(false);
-            }
-        };
-
-        fetchShips();
-    }, []); */
+    if (error) {
+        return (
+            <p> Something went wrong :( </p>
+        )
+    }
 
 	if (details === null) {
 		return (
@@ -112,13 +89,13 @@ const RadarChart = (props: { zoneId: string }) => {
 			{
 				label: `Zone ${props.zoneId} Plant Consumption Stats`,
 				data: [
-					details.edibleLeaf,
-					details.edibleFruit,
-					details.cuisine,
-					details.medicinal,
-					details.poisonousToHumans,
-					details.poisonousToPets,
-					details.fruits,
+					details.edibleLeaf.percentage,
+					details.edibleFruit.percentage,
+					details.cuisine.percentage,
+					details.medicinal.percentage,
+					details.poisonousToHumans.percentage,
+					details.poisonousToPets.percentage,
+					details.fruits.percentage,
 				],
 				fill: true,
 				backgroundColor: "rgba(92, 70, 26, 0.2)",
@@ -141,14 +118,14 @@ const RadarChart = (props: { zoneId: string }) => {
 		plugins: {
 			legend: { position: "top" },
 		},
-	};
+    } as const;
 
 	return (
 		<div>
 			{loading ? (
 				<p>Loading radar data...</p>
 			) : (
-				<Container fluid="lg" className="zone-radar-chart my-ultra">
+				<Container fluid="lg" className="zone-radar-chart my-ultra p-0">
 					<h2>Can it Consumify?</h2>
 					<p>
 						What's the average edibleness profile in this zone?

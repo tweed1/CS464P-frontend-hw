@@ -1,5 +1,4 @@
-import { Link } from "react-router";
-import Button from "react-bootstrap/Button";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -9,7 +8,7 @@ import Nav from "react-bootstrap/Nav";
 import NavLink from "react-bootstrap/NavLink";
 
 import "../custom.css";
-import logo from "../images/logo.JPG";
+import logo from "../assets/images/flower.jpg";
 
 const Footer = () => {
 	console.log(logo);
@@ -23,13 +22,14 @@ const Footer = () => {
 								src={logo}
 								alt="logo"
 								rounded
-								width={150}
-								height={150}></Image>
-							<h1 className="my-agu fs-4 text-start">Plantify</h1>
-							<p className="my-agu text-start">
+								width={120}
+								height={120}></Image>
+							<h1 className="my-agu fs-4 text-start my-0">
+								Plantify
+							</h1>
+							<p className="my-agu text-start my-0">
 								Designed by Katie Tweed
 							</p>
-							<p> </p>
 						</Stack>
 					</Col>
 					<Col className="footer-col">
@@ -37,9 +37,15 @@ const Footer = () => {
 							References
 							<NavLink
 								href="https://perenual.com/docs/api"
-								className="text-white link my-default">
+								className="text-white link my-default pb-0">
 								{" "}
 								Primary API from Perenual
+							</NavLink>
+							<NavLink
+								href="https://github.com/kgjenkins/ophz"
+								className="text-white link my-default">
+								{" "}
+								Geojson from OPHZ
 							</NavLink>
 						</Nav>
 					</Col>
