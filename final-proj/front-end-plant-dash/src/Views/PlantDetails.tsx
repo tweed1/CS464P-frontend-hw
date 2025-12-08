@@ -1,11 +1,8 @@
-import Button from "react-bootstrap/Button";
-import SearchPlant from "../Components/SearchPlantDB";
 import { Col, Container, Row } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
-import logo from "../images/logo.JPG";
-import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
-import { alignPropType } from "react-bootstrap/esm/types";
+import logo from "../assets/images/newton.jpeg";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
 type Plant = {
 	common_name: string;
@@ -14,16 +11,16 @@ type Plant = {
 	origin: string[];
 	cycle: string;
 	sunlight: string[];
-    description: string;
-    watering: string;
+	description: string;
+	watering: string;
 	hardiness: {
 		min: string;
 		max: string;
 	};
 	pest_susceptibility: string[];
 	edible_fruit: boolean;
-    edible_leaf: boolean;
-	default_image: {
+	edible_leaf: boolean;
+	default_image?: {
 		license: 0;
 		license_name: string;
 		license_url: string;
@@ -33,7 +30,7 @@ type Plant = {
 		small_url: string;
 		thumbnail: string;
 	};
-    other_images?: {
+	other_images?: {
 		license: 0;
 		license_name: string;
 		license_url: string;
@@ -48,12 +45,9 @@ type Plant = {
 const PlantDetails = () => {
 	const apiKey = import.meta.env.VITE_PERENUAL_API_KEY;
 	const [loading, setLoading] = useState(false);
-	const [instruction, setInstruction] = useState(true);
 	const [plant, setPlant] = useState<Plant | undefined>();
 	const [error, setError] = useState<string | undefined>();
-	const [searchTerm, setSearchTerm] = useState("");
 	const params = useParams();
-	const [searchParams, setSearchParams] = useSearchParams();
 
 	useEffect(() => {
 		document.title = "Plant Details";
@@ -75,7 +69,7 @@ const PlantDetails = () => {
 				if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
 				const incomingData = await response.json();
-                console.dir(incomingData);
+				console.dir(incomingData);
 				setPlant(incomingData);
 			} catch (error: any) {
 				setError(error);
@@ -86,7 +80,10 @@ const PlantDetails = () => {
 		fetchPlants();
 	}, [params.id]);
 
-	if (!plant) {
+	if (error) {
+		return <p>Something went wrong :(</p>;
+	}
+	if (!plant || loading) {
 		return (
 			<div>
 				<p> loading</p>
@@ -100,10 +97,10 @@ const PlantDetails = () => {
 					<Col md={3} className="p-0">
 						{" "}
 						<Image
-							src={ plant.default_image.small_url ?? logo}
+							src={plant.default_image?.small_url || logo}
 							style={{
-                                width: "300px",
-                                height: "300px",
+								width: "300px",
+								height: "300px",
 								objectFit: "cover",
 							}}
 							rounded
@@ -114,7 +111,7 @@ const PlantDetails = () => {
 						className="p-0 mx-1 d-flex flex-column align-items-start">
 						<h1 className="my-ultra">{plant.common_name} </h1>
 						<h2 className="">{plant.scientific_name} </h2>
-                        <p className="text-start"> {plant.description}</p>
+						<p className="text-start"> {plant.description}</p>
 						<p className="mb-0">Family: {plant.family} </p>
 						<p className="">Origin: {plant.origin.join()}</p>
 					</Col>
@@ -131,15 +128,15 @@ const PlantDetails = () => {
 						<div className="hr"></div>
 						<p className=""> Cycle: {plant.cycle}</p>
 						<p className=""> Watering: {plant.watering}</p>
-						<p className="">
-							{" "}
-							Sunlight: {plant.sunlight.join()}
-						</p>
+						<p className=""> Sunlight: {plant.sunlight.join()}</p>
 						{(plant.edible_fruit || plant.edible_leaf) && (
 							<p className=""> {plant.common_name} is edible</p>
 						)}
-                        {(!plant.edible_fruit && !plant.edible_leaf) && (
-							<p className=""> {plant.common_name} is not edible</p>
+						{!plant.edible_fruit && !plant.edible_leaf && (
+							<p className="">
+								{" "}
+								{plant.common_name} is not edible
+							</p>
 						)}
 
 						<p className="">
@@ -152,9 +149,10 @@ const PlantDetails = () => {
 						</p>
 					</Col>
 				</Row>
-                <Row>
-{/*                     <div>{plant.other_images?.map((image)=> <img src={image.small_url}> </img>)}</div>
- */}                </Row>
+				<Row>
+					{/*                     <div>{plant.other_images?.map((image)=> <img src={image.small_url}> </img>)}</div>
+					 */}{" "}
+				</Row>
 			</Container>
 		</div>
 	);

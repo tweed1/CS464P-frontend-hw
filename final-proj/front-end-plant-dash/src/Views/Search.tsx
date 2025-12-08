@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Button from "react-bootstrap/Button";
 import SearchPlant from "../Components/SearchPlantDB"
 
 const Search = () => {

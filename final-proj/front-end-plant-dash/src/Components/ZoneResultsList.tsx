@@ -1,11 +1,8 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import Card from "react-bootstrap/Card";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useParams, useSearchParams } from "react-router";
-import placeholder from "../images/newton.jpeg";
+import { useParams } from "react-router";
+import placeholder from "../assets/images/newton.jpeg";
 
 const Results = () => {
 	const apiKey = import.meta.env.VITE_PERENUAL_API_KEY;
@@ -38,7 +35,6 @@ const Results = () => {
 			} catch (error: any) {
 				setError(error);
 			} finally {
-				
 			}
 		};
 		fetchPlants();

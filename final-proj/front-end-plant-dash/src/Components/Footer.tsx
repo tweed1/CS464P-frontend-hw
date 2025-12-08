@@ -1,5 +1,4 @@
-import { Link } from "react-router";
-import Button from "react-bootstrap/Button";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -9,7 +8,7 @@ import Nav from "react-bootstrap/Nav";
 import NavLink from "react-bootstrap/NavLink";
 
 import "../custom.css";
-import logo from "../images/logo.JPG";
+import logo from "../assets/images/flower.jpg";
 
 const Footer = () => {
 	console.log(logo);

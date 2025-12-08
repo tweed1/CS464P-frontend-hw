@@ -2,9 +2,9 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Card from "react-bootstrap/Card";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import placeholder from "../images/newton.jpeg";
+import placeholder from "../assets/images/newton.jpeg";
 
 const SearchPlant = () => {
 	const apiKey = import.meta.env.VITE_PERENUAL_API_KEY;
@@ -16,7 +16,7 @@ const SearchPlant = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [lastPage, setLastPage] = useState(1);
 
-    /* fetches species list with given search term and page number */
+	/* fetches species list with given search term and page number */
 	const fetchPlants = async (page = 1, term = searchTerm) => {
 		try {
 			setLoading(true);
@@ -41,7 +41,7 @@ const SearchPlant = () => {
 		}
 	};
 
-    /* handles api fetch on form submission = search */
+	/* handles api fetch on form submission = search */
 	const handleSubmit = async (event: any) => {
 		event.preventDefault();
 		setInstruction(false);
@@ -50,12 +50,12 @@ const SearchPlant = () => {
 		fetchPlants(1, searchTerm);
 	};
 
-    /* fetches the next page on click 'next' */
+	/* fetches the next page on click 'next' */
 	const goToNextPage = () => {
 		if (currentPage < lastPage) fetchPlants(currentPage + 1);
 	};
 
-    /* fetches previous page on click 'previous' */
+	/* fetches previous page on click 'previous' */
 	const goToPrevPage = () => {
 		if (currentPage > 1) fetchPlants(currentPage - 1);
 	};
@@ -63,7 +63,7 @@ const SearchPlant = () => {
 	return (
 		<div className="container-fluid">
 			<div className="d-flex flex-column">
-                {/* Search Bar */}
+				{/* Search Bar */}
 				<form
 					onSubmit={handleSubmit}
 					className="col-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
@@ -91,7 +91,7 @@ const SearchPlant = () => {
 				{loading && <p>Loading...</p>}
 				{error && <p> Error: </p>}
 
-                {/* Card Results */}
+				{/* Card Results */}
 				<div className="d-flex flex-wrap justify-content-center align-items-center gap-4 card-container">
 					{allPlants.map((plant: any) => (
 						<Link
@@ -113,9 +113,9 @@ const SearchPlant = () => {
 									alt={plant.common_name}
 									style={{
 										height: "160px",
-                                        width: "180px",
+										width: "180px",
 										objectFit: "cover",
-                                        /* display: "block",
+										/* display: "block",
                                         margin: "0 auto", */
 									}}
 								/>
@@ -131,7 +131,7 @@ const SearchPlant = () => {
 						</Link>
 					))}
 				</div>
-                {/* * Page Navigation */}
+				{/* * Page Navigation */}
 				{allPlants.length > 0 && (
 					<nav aria-label="Plant pagination" className="mt-4 mx-auto">
 						<ul className="pagination">

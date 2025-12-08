@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +19,7 @@ const zoneColors = [
 	"#8c2d04",
 ];
 
-function getColorForZone(n) {
+function getColorForZone(n:string) {
 	const i = Math.max(1, Math.min(13, Math.round(Number(n)))); // clamp
 	return zoneColors[i - 1] || "#ccc";
 }
@@ -27,14 +27,15 @@ function getColorForZone(n) {
 const HardinessZonesMap = () => {
 	const navigate = useNavigate();
 	const [geo, setGeo] = useState(null);
-    const [error, setError] = useState();
-    const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<any>();
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		// Option A: fetch the geojson from public/ (recommended)
 		const fetchData = async () => {
 			try {
-				const response = await fetch("/ophz/ophz.geojson");
+                setLoading(true)
+				const response = await fetch("ophz/ophz.geojson");
 				if (!response.ok) {
 					throw new Error(`HTTP error! status: ${response.status}`);
 				}
@@ -46,10 +47,10 @@ const HardinessZonesMap = () => {
 				setLoading(false);
 			}
 		};
-            fetchData();
+		fetchData();
 	}, []);
 
-	const style = (feature) => {
+	const style = (feature: any) => {
 		// adapt property name to match your geojson file
 		const rawZone =
 			feature.properties?.ZONE ??
@@ -66,7 +67,7 @@ const HardinessZonesMap = () => {
 		};
 	};
 
-	const onEachFeature = (feature, layer) => {
+	const onEachFeature = (feature: any, layer: any) => {
 		const rawZone =
 			feature.properties?.ZONE ?? feature.properties?.value ?? "unknown";
 		const zone = String(rawZone);
@@ -82,20 +83,30 @@ const HardinessZonesMap = () => {
 		layer.bindTooltip(label);
 	};
 
+	if (error) {
+		return <p> Something went wrong :( </p>;
+	}
+
+    if(loading) {
+        return (
+            <p>loading............</p>
+        )
+    }
+
 	return (
-			<MapContainer
-				center={[39.5, -98.35]}
-				zoom={4}
-				style={{ height: "90%", width: "80%" }}>
-				<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-				{geo && (
-					<GeoJSON
-						data={geo}
-						style={style}
-						onEachFeature={onEachFeature}
-					/>
-				)}
-			</MapContainer>
+		<MapContainer
+			center={[39.5, -98.35]}
+			zoom={4}
+			style={{ height: "90%", width: "80%" }}>
+			<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+			{geo && (
+				<GeoJSON
+					data={geo}
+					style={style}
+					onEachFeature={onEachFeature}
+				/>
+			)}
+		</MapContainer>
 	);
 };
 

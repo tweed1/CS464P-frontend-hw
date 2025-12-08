@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Stack from "react-bootstrap/Stack";
 import { Radar } from "react-chartjs-2";
-import { useParams, useSearchParams } from "react-router";
 
 import {
 	Chart as ChartJS,
@@ -39,18 +35,15 @@ const RadarChart = (props: { zoneId: string }) => {
 		poisonousToPets: Entry;
 		fruits: Entry;
 	};
-	const [ships, setShips] = useState([]);
 	const [details, setDetails] = useState<null | ZoneData>(null);
-	const [error, setError] = useState();
+	const [error, setError] = useState<any>();
 	const [loading, setLoading] = useState(true);
-	const params = useParams();
-	const [searchParams, setSearchParams] = useSearchParams();
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const response = await fetch(
-					"../graph_data/zone_analysis_2.json"
+					"graph_data/zone_analysis_2.json"
 				);
 				if (!response.ok) {
 					throw new Error(`HTTP error! status: ${response.status}`);
@@ -67,6 +60,12 @@ const RadarChart = (props: { zoneId: string }) => {
 		};
 		fetchData();
 	}, []);
+
+    if (error) {
+        return (
+            <p> Something went wrong :( </p>
+        )
+    }
 
 	if (details === null) {
 		return (
@@ -119,7 +118,7 @@ const RadarChart = (props: { zoneId: string }) => {
 		plugins: {
 			legend: { position: "top" },
 		},
-	};
+    } as const;
 
 	return (
 		<div>

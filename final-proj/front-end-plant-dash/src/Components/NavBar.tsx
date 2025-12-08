@@ -1,12 +1,10 @@
 import { Link } from "react-router";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Stack from "react-bootstrap/Stack";
 import Image from "react-bootstrap/Image";
 import "../custom.css";
-import flower from "../images/half-main-flower.png";
+import flower from "../assets/images/half-main-flower.png";
 
 const Navbar = () => {
 	return (
