@@ -95,3 +95,9 @@ Chart session
 
 Search pagination session
 > https://getbootstrap.com/docs/4.0/components/pagination/
+
+
+deployment session
+> it broke. 
+> npm run deploy
+> github pages requres statics pages not server-side rendered pages. so i needed to use react router hashrouter.
