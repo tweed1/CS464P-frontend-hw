@@ -9,73 +9,54 @@ import placeholder from "../images/newton.jpeg";
 
 const Results = () => {
 	const apiKey = import.meta.env.VITE_PERENUAL_API_KEY;
-	const tApiKey = import.meta.env.VITE_TREFLE_TOKEN;
-	const [loading, setLoading] = useState(false);
-	const [instruction, setInstruction] = useState(true);
 	const [allPlants, setAllPlants] = useState([]);
 	const [error, setError] = useState(null);
-	const [searchTerm, setSearchTerm] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
 	const [lastPage, setLastPage] = useState(1);
 	const [loadResults, setLoadResults] = useState(false);
-    const params = useParams();
-	const [searchParams, setSearchParams] = useSearchParams();
+	const params = useParams();
 
-	/* fetches species list with given search term and page number */
-	const fetchPlants = async (page = 1, term = searchTerm) => {
-		try {
-			setLoading(true);
-			const response = await fetch(
-				`https://perenual.com/api/v2/species-list?key=${apiKey}&q=${term}&page=${page}&hardiness=${params.id}`,
-				{ mode: "cors" }
-			);
+	useEffect(() => {
+		/* fetches species list with given search term and page number */
+		const fetchPlants = async () => {
+			try {
+				setError(null);
 
-			if (!response.ok) throw new Error(`HTTP ${response.status}`);
+				const response = await fetch(
+					`https://perenual.com/api/v2/species-list?key=${apiKey}&page=${currentPage}&hardiness=${params.id}`,
+					{ mode: "cors" }
+				);
 
-			const data = await response.json();
-			console.log(data);
+				if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-			setAllPlants(data.data ?? []);
-			console.dir(data);
-			setCurrentPage(data.current_page);
-			setLastPage(data.last_page);
-		} catch (error: any) {
-			setError(error);
-		} finally {
-			setLoading(false);
-		}
-	};
+				const data = await response.json();
+
+				setAllPlants(data.data ?? []);
+				setLoadResults(true);
+				setLastPage(data.last_page);
+				console.dir(data);
+			} catch (error: any) {
+				setError(error);
+			} finally {
+				
+			}
+		};
+		fetchPlants();
+	}, [params.id, currentPage]);
 
 	/* fetches the next page on click 'next' */
 	const goToNextPage = () => {
-		if (currentPage < lastPage) fetchPlants(currentPage + 1);
+		if (currentPage < lastPage) setCurrentPage(currentPage + 1);
 	};
 
 	/* fetches previous page on click 'previous' */
 	const goToPrevPage = () => {
-		if (currentPage > 1) fetchPlants(currentPage - 1);
-	};
-	/* handles api fetch on form submission = search */
-	const displayResults = () => {
-		setInstruction(false);
-		setError(null);
-		setCurrentPage(1);
-		fetchPlants(1, searchTerm);
-		setLoadResults(true);
+		if (currentPage > 1) setCurrentPage(currentPage - 1);
 	};
 
 	return (
 		<div className="container-fluid m-0">
 			<div className="d-flex flex-column justify-content-center align-items-center m-0">
-				<Button
-					type="button"
-					onClick={displayResults}
-					className="custom-primary display-results-btn mb-3"
-					variant="primary"
-					id="button-addon2">
-					Show List
-				</Button>
-				{loading && <p>Loading...</p>}
 				{error && <p> Error: </p>}
 				{loadResults && (
 					<div>

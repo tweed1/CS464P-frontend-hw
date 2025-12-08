@@ -15,53 +15,79 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-const BarChart = () => {
-	const [planetData, setPlanetData] = useState([]);
+const BarChart = (props: { zoneId: string }) => {
+	type Entry = {
+		total: number;
+		percentage: number;
+	};
+	type ZoneData = {
+		edibleLeaf: Entry;
+		edibleFruit: Entry;
+		cuisine: Entry;
+		medicinal: Entry;
+		poisonousToHumans: Entry;
+		poisonousToPets: Entry;
+		fruits: Entry;
+	};
+	const [details, setDetails] = useState<undefined | ZoneData>(undefined);
+	const [error, setError] = useState();
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const fetchPlanetData = async () => {
+		const fetchData = async () => {
 			try {
-				const response = await fetch("https://swapi.dev/api/planets/");
-				const data = await response.json();
-				const planets = data.results;
-
-				const planetPopulationData = planets.map((planet) => {
-					let population = planet.population;
-
-					// Check for 'unknown' or unavailable data
-					if (population === "unknown" || population === "") {
-						population = 0;
-					} else {
-						population = parseInt(population, 10);
-					}
-
-					return { name: planet.name, population };
-				});
-
-				// Sort planets by population in descending order - important when setting up a bar chart
-				// planetPopulationData.sort((a, b) => b.population - a.population);
-				const filteredPlanets = planetPopulationData.filter(
-					(planet) => planet.population <= 10000000
+				const response = await fetch(
+					"../graph_data/zone_analysis_2.json"
 				);
-				setPlanetData(filteredPlanets);
-				setLoading(false);
-			} catch (error) {
-				console.error("Error fetching data:", error);
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+				const jsonData = await response.json();
+				console.dir(jsonData);
+				console.dir(jsonData[props.zoneId]);
+
+				setDetails(jsonData[props.zoneId]);
+			} catch (err) {
+				setError(err);
+			} finally {
 				setLoading(false);
 			}
 		};
-
-		fetchPlanetData();
+		fetchData();
 	}, []);
 
+	if (!details) {
+		return (
+			<div>
+				<p> loading</p>
+			</div>
+		);
+	}
+
 	const data = {
-		labels: planetData.map((planet) => planet.name),
+		labels: [
+			"Edible Leaf",
+			"Edible Fruit",
+			"Used in Cuisine",
+			"Medicinal",
+			"Poisonous to Humans",
+			"Poisonous to Pets",
+			"Has Fruits",
+		],
 		datasets: [
 			{
-				label: "Population",
-				data: planetData.map((planet) => planet.population),
+				label: `Zone ${props.zoneId} Edibleness Totals`,
+				data: [
+					details.edibleLeaf.total,
+					details.edibleFruit.total,
+					details.cuisine.total,
+					details.medicinal.total,
+					details.poisonousToHumans.total,
+					details.poisonousToPets.total,
+					details.fruits.total,
+				],
 				backgroundColor: [
+					"#0f5231ff",
 					"#177244",
 					"#3B8751",
 					"#5E9C5E",
@@ -80,7 +106,7 @@ const BarChart = () => {
 		plugins: {
 			title: {
 				display: true,
-				text: "Population per Planet in Star Wars",
+				text: "test",
 				font: {
 					size: 24,
 				},
@@ -99,14 +125,14 @@ const BarChart = () => {
 			x: {
 				title: {
 					display: true,
-					text: "Planets",
+					text: "",
 				},
 			},
 			y: {
 				beginAtZero: true,
 				title: {
 					display: true,
-					text: "Population",
+					text: "Count",
 				},
 			},
 		},
@@ -117,8 +143,8 @@ const BarChart = () => {
 			{loading ? (
 				<p>Loading data...</p>
 			) : (
-				<Container fluid="sm">
-					<h1>Population Data</h1>
+				<Container fluid="sm" className="my-ultra">
+					<h3>Zone {props.zoneId} Edibleness Totals</h3>
 					<br />
 					<Bar data={data} options={options} />
 				</Container>

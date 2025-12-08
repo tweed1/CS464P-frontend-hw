@@ -62,7 +62,7 @@ const Zone = () => {
 								<ZoneRadarChart zoneId={params.id} />
 							</div>
 							<div>
-								<ZoneBarChart />
+								<ZoneBarChart zoneId={params.id} />
 							</div>
 						</Col>
 					</Row>

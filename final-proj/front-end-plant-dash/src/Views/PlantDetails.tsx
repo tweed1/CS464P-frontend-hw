@@ -15,12 +15,14 @@ type Plant = {
 	cycle: string;
 	sunlight: string[];
     description: string;
+    watering: string;
 	hardiness: {
 		min: string;
 		max: string;
 	};
 	pest_susceptibility: string[];
-	edible_to_humans: boolean;
+	edible_fruit: boolean;
+    edible_leaf: boolean;
 	default_image: {
 		license: 0;
 		license_name: string;
@@ -112,8 +114,8 @@ const PlantDetails = () => {
 						className="p-0 mx-1 d-flex flex-column align-items-start">
 						<h1 className="my-ultra">{plant.common_name} </h1>
 						<h2 className="">{plant.scientific_name} </h2>
-                        <p>{plant.description}</p>
-						<p className="">Family: {plant.family} </p>
+                        <p className="text-start"> {plant.description}</p>
+						<p className="mb-0">Family: {plant.family} </p>
 						<p className="">Origin: {plant.origin.join()}</p>
 					</Col>
 				</Row>
@@ -125,24 +127,27 @@ const PlantDetails = () => {
 					<div className="vr vr-style"></div>
 					<Col
 						md={8}
-						className="p-0 mx-1 d-flex flex-column align-items-start">
+						className="p-0 mx-1 d-flex flex-column align-items-start my-ultra fs-5">
 						<div className="hr"></div>
-						<p className="fs-4"> Cycle: {plant.cycle}</p>
-						<p className="fs-4"> Watering: </p>
-						<p className="fs-4">
+						<p className=""> Cycle: {plant.cycle}</p>
+						<p className=""> Watering: {plant.watering}</p>
+						<p className="">
 							{" "}
 							Sunlight: {plant.sunlight.join()}
 						</p>
-						{plant.edible_to_humans && (
-							<p className="fs-4"> Is edible</p>
+						{(plant.edible_fruit || plant.edible_leaf) && (
+							<p className=""> {plant.common_name} is edible</p>
+						)}
+                        {(!plant.edible_fruit && !plant.edible_leaf) && (
+							<p className=""> {plant.common_name} is not edible</p>
 						)}
 
-						<p className="fs-4">
+						<p className="">
 							{" "}
 							Hardiness Zone: {plant.hardiness.min} -{" "}
 							{plant.hardiness.max}
 						</p>
-						<p className="fs-4">
+						<p className="">
 							Pests: {plant.pest_susceptibility.join(" ")}
 						</p>
 					</Col>

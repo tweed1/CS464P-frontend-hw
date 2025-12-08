@@ -26,14 +26,18 @@ ChartJS.register(
 );
 
 const RadarChart = (props: { zoneId: string }) => {
+    type Entry = {
+        total: number;
+        percentage: number;
+    }
 	type ZoneData = {
-		edibleLeaf: number;
-		edibleFruit: number;
-		cuisine: number;
-		medicinal: number;
-		poisonousToHumans: number;
-		poisonousToPets: number;
-		fruits: number;
+		edibleLeaf: Entry;
+		edibleFruit: Entry;
+		cuisine: Entry;
+		medicinal: Entry;
+		poisonousToHumans: Entry;
+		poisonousToPets: Entry;
+		fruits: Entry;
 	};
 	const [ships, setShips] = useState([]);
 	const [details, setDetails] = useState<null | ZoneData>(null);
@@ -46,15 +50,14 @@ const RadarChart = (props: { zoneId: string }) => {
 		const fetchData = async () => {
 			try {
 				const response = await fetch(
-					"../graph_data/zone_analysis.json"
+					"../graph_data/zone_analysis_2.json"
 				);
 				if (!response.ok) {
 					throw new Error(`HTTP error! status: ${response.status}`);
 				}
 				const jsonData = await response.json();
-				console.dir(jsonData);
-				console.dir(jsonData[props.zoneId]);
-
+				/* console.dir(jsonData);
+				console.dir(jsonData[props.zoneId]); */
 				setDetails(jsonData[props.zoneId]);
 			} catch (err) {
 				setError(err);
@@ -64,31 +67,6 @@ const RadarChart = (props: { zoneId: string }) => {
 		};
 		fetchData();
 	}, []);
-	/* 
-    useEffect(() => {
-        const fetchShips = async () => {
-            try {
-                const response = await fetch("https://swapi.dev/api/starships/");
-                const data = await response.json();
-
-                const cleaned = data.results.slice(0, 5).map((ship) => ({
-                    name: ship.name,
-                    crew: parseInt(ship.crew.replace(/,/g, "")) || 0,
-                    passengers: parseInt(ship.passengers.replace(/,/g, "")) || 0,
-                    cargo_capacity:
-                        parseInt(ship.cargo_capacity.replace(/,/g, "")) || 0,
-                }));
-
-                setShips(cleaned);
-                setLoading(false);
-            } catch (err) {
-                console.error("Error:", err);
-                setLoading(false);
-            }
-        };
-
-        fetchShips();
-    }, []); */
 
 	if (details === null) {
 		return (
@@ -112,13 +90,13 @@ const RadarChart = (props: { zoneId: string }) => {
 			{
 				label: `Zone ${props.zoneId} Plant Consumption Stats`,
 				data: [
-					details.edibleLeaf,
-					details.edibleFruit,
-					details.cuisine,
-					details.medicinal,
-					details.poisonousToHumans,
-					details.poisonousToPets,
-					details.fruits,
+					details.edibleLeaf.percentage,
+					details.edibleFruit.percentage,
+					details.cuisine.percentage,
+					details.medicinal.percentage,
+					details.poisonousToHumans.percentage,
+					details.poisonousToPets.percentage,
+					details.fruits.percentage,
 				],
 				fill: true,
 				backgroundColor: "rgba(92, 70, 26, 0.2)",

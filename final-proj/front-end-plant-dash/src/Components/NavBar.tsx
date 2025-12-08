@@ -20,7 +20,7 @@ const Navbar = () => {
 						className="navbar-brand me-3 text-white my-agu fs-4">
 						PLANTIFY
 					</Link>
-					<ul className="navbar-nav flex-row mb-2 mb-lg-0 align-items-center justify-content-center">
+					<ul className="navbar-nav flex-row mb-2 mb-lg-0 align-items-center justify-content-center mx-3">
 						<li className="nav-item px-2">
 							<Link
 								to="/"
