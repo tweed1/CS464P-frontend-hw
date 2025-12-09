@@ -87,7 +87,7 @@ const RadarChart = (props: { zoneId: string }) => {
 		],
 		datasets: [
 			{
-				label: `Zone ${props.zoneId} Plant Consumption Stats`,
+				label: `Zone ${props.zoneId} Percentage of Plant Consumption Stats`,
 				data: [
 					details.edibleLeaf.percentage,
 					details.edibleFruit.percentage,
@@ -117,6 +117,15 @@ const RadarChart = (props: { zoneId: string }) => {
 		},
 		plugins: {
 			legend: { position: "top" },
+            tooltip: {
+                callbacks: {
+                    label: function (context: any) {
+                        const label = context.dataset.label || "";
+                        const value = context.parsed.r;
+                        return `${label}: ${value.toFixed(2)}%`;
+                    }
+                }
+            }
 		},
     } as const;
 
@@ -126,11 +135,14 @@ const RadarChart = (props: { zoneId: string }) => {
 				<p>Loading radar data...</p>
 			) : (
 				<Container fluid="lg" className="zone-radar-chart my-ultra p-0">
+                    <p id="radar-chart-desc" className="visually-hidden">
+						Radar chart showing plant averages by edibleness category.
+					</p>
 					<h2>Can it Consumify?</h2>
 					<p>
 						What's the average edibleness profile in this zone?
 					</p>
-					<Radar data={data} options={options} />
+					<Radar data={data} options={options}  aria-describedby="radar-chart-desc"/>
 				</Container>
 			)}
 		</div>

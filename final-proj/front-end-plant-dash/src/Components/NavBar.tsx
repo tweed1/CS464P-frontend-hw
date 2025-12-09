@@ -34,12 +34,6 @@ const Navbar = () => {
 								Search
 							</Link>
 						</li>
-						{/* 
-						<li className="px-2">
-							<Link to="/mystery-plant" className="nav-link active text-white my-ultra nav-pill">
-								Mystery
-							</Link>
-						</li> */}
 					</ul>
 				</div>
 			</nav>
@@ -51,7 +45,7 @@ const Navbar = () => {
 					<Col className="">
 						<Image
 							src={flower}
-							alt="logo"
+							alt="half a purple bachelor button used for navigation bar decoration"
 							rounded
 							width={150}
 							height={75}></Image>

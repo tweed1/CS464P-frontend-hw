@@ -98,6 +98,7 @@ const PlantDetails = () => {
 						{" "}
 						<Image
 							src={plant.default_image?.small_url || logo}
+							alt={`Image of ${plant.common_name}`}
 							style={{
 								width: "300px",
 								height: "300px",
@@ -145,7 +146,7 @@ const PlantDetails = () => {
 							{plant.hardiness.max}
 						</p>
 						<p className="">
-							Pests: {plant.pest_susceptibility.join(" ")}
+							Pests: {plant.pest_susceptibility.join()}
 						</p>
 					</Col>
 				</Row>

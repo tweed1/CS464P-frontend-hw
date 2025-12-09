@@ -13,11 +13,13 @@ import {
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 const BarChart = (props: { zoneId: string }) => {
-	type Entry = {
+
+    type Entry = {
 		total: number;
 		percentage: number;
 	};
 	type ZoneData = {
+        totalPlants: number;
 		edibleLeaf: Entry;
 		edibleFruit: Entry;
 		cuisine: Entry;
@@ -26,6 +28,7 @@ const BarChart = (props: { zoneId: string }) => {
 		poisonousToPets: Entry;
 		fruits: Entry;
 	};
+
 	const [details, setDetails] = useState<undefined | ZoneData>(undefined);
 	const [error, setError] = useState<any>();
 	const [loading, setLoading] = useState(true);
@@ -33,9 +36,7 @@ const BarChart = (props: { zoneId: string }) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch(
-					"graph_data/zone_analysis_2.json"
-				);
+				const response = await fetch("graph_data/zone_analysis_2.json");
 				if (!response.ok) {
 					throw new Error(`HTTP error! status: ${response.status}`);
 				}
@@ -53,11 +54,9 @@ const BarChart = (props: { zoneId: string }) => {
 		fetchData();
 	}, []);
 
-    if (error) {
-        return (
-            <p> Something went wrong :( </p>
-        )
-    }
+	if (error) {
+		return <p> Something went wrong :( </p>;
+	}
 
 	if (!details) {
 		return (
@@ -107,35 +106,21 @@ const BarChart = (props: { zoneId: string }) => {
 	const options = {
 		responsive: true,
 		plugins: {
-			title: {
-				display: true,
-				text: "test",
-				font: {
-					size: 24,
-				},
-				padding: {
-					bottom: 20,
-				},
-			},
-			legend: {
-				display: false,
-			},
 			tooltip: {
-				enabled: true,
+                callbacks: {
+                    label: (context: any) => {
+                        const value = context.raw;
+                        return `${value} / ${details.totalPlants}`;
+                    },
+                },
 			},
 		},
 		scales: {
-			x: {
-				title: {
-					display: true,
-					text: "",
-				},
-			},
 			y: {
 				beginAtZero: true,
 				title: {
 					display: true,
-					text: "Count",
+					text: `Count (out of ${details.totalPlants})`,
 				},
 			},
 		},
@@ -147,9 +132,13 @@ const BarChart = (props: { zoneId: string }) => {
 				<p>Loading data...</p>
 			) : (
 				<Container fluid="sm" className="my-ultra">
+					<p id="chart-desc" className="visually-hidden">
+						Bar chart showing plant counts by category.
+					</p>
+
 					<h3>Zone {props.zoneId} Edibleness Totals</h3>
-					<br />
-					<Bar data={data} options={options} />
+                    <p>Total Plants in Zone {props.zoneId}: {details.totalPlants}</p>
+					<Bar data={data} options={options} aria-describedby="chart-desc"/>
 				</Container>
 			)}
 		</div>
